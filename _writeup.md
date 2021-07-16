@@ -3,6 +3,21 @@
 
 Solution scripts can be found at: https://gist.github.com/trupples/5cc02e24d1d639fe62ecea3ad03aa892
 
+Tasks we solved but did not get to do writeups for: 
+* Cape Canaveral (warmup)
+* Vandenberg (warmup)
+* Edwards (warmup)
+* Cotton Eye GEO (script attached; similar to Fiddlin' John Carson, with the addition of using pyorbital to plan the rather simple maneuver)
+* Saving Spinny (script attached; similar to Take Out The Trash)
+* Quaternion
+* Problems are Mounting (script attached)
+* Mars or Bust (took a lot of fiddling with parameters after figuring out how to patch them)
+* Bit Flipper (partial script attached, though it is supposedly a very lucky attempt that just worked)
+* groundead
+* King's Ransom (attached script is old but supposedly only has an 8 byte alignment issue)
+* King's Ransom 2 (`cat /proc/1/environ` after getting RCE in King's Ransom 1)
+
+
 ## Fiddlin' John Carson
 
 *Writeup by trupples*

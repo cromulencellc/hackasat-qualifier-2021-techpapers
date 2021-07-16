@@ -1,0 +1,8 @@
+respline("Select byte to ionize (0-404): ", 0x16e)
+respline("Select bit to ionize (0-7):", 0)
+
+respline("Select byte to ionize (0-404): ", 0x170)
+respline("Select bit to ionize (0-7):", 0)
+
+respline("Select byte to ionize (0-404): ", 0x170)
+respline("Select bit to ionize (0-7):", 1)
