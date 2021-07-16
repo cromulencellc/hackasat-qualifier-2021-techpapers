@@ -1,7 +1,7 @@
 # OneSmallHackForMan
 # HackASat 2021 Quals writeups
 
-Solution scripts can be found at: ???
+Solution scripts can be found at: https://gist.github.com/trupples/5cc02e24d1d639fe62ecea3ad03aa892
 
 ## Fiddlin' John Carson
 
