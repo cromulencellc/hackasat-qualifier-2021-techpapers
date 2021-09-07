@@ -1,37 +1,25 @@
-<?xml version=3D"1.0" encoding=3D"utf-8"?><ct:contentTypeSchema ct:_=3D"" m=
-a:_=3D"" ma:contentTypeName=3D"Document" ma:contentTypeID=3D"0x010100B1300A=
-1F2C9EED4285C3B3BD3BC84DF9" ma:contentTypeVersion=3D"340" ma:contentTypeDes=
-cription=3D"Create a new document." ma:contentTypeScope=3D"" ma:versionID=
-=3D"2ae6f195380e38871c5f86150de4c617" xmlns:ct=3D"http://schemas.microsoft.=
-com/office/2006/metadata/contentType" xmlns:ma=3D"http://schemas.microsoft.=
-com/office/2006/metadata/properties/metaAttributes">
-<xsd:schema targetNamespace=3D"http://schemas.microsoft.com/office/2006/met=
-adata/properties" ma:root=3D"true" ma:fieldsID=3D"d85cc20ff16b963c181b52334=
-066a227" ns2:_=3D"" ns3:_=3D"" ns4:_=3D"" xmlns:xsd=3D"http://www.w3.org/20=
-01/XMLSchema" xmlns:xs=3D"http://www.w3.org/2001/XMLSchema" xmlns:p=3D"http=
-://schemas.microsoft.com/office/2006/metadata/properties" xmlns:ns2=3D"3831=
-ab7b-39f8-415b-8ec4-71d24134726f" xmlns:ns3=3D"069d9e3e-d077-45a6-94cc-4bfc=
-27673df4" xmlns:ns4=3D"33a66c17-875f-4055-b5bf-62185316e6f5">
-<xsd:import namespace=3D"3831ab7b-39f8-415b-8ec4-71d24134726f"/>
-<xsd:import namespace=3D"069d9e3e-d077-45a6-94cc-4bfc27673df4"/>
-<xsd:import namespace=3D"33a66c17-875f-4055-b5bf-62185316e6f5"/>
-<xsd:element name=3D"properties">
+<?xml version="1.0" encoding="utf-8"?><ct:contentTypeSchema ct:_="" ma:_="" ma:contentTypeName="Document" ma:contentTypeID="0x010100B1300A1F2C9EED4285C3B3BD3BC84DF9" ma:contentTypeVersion="340" ma:contentTypeDescription="Create a new document." ma:contentTypeScope="" ma:versionID="2ae6f195380e38871c5f86150de4c617" xmlns:ct="http://schemas.microsoft.com/office/2006/metadata/contentType" xmlns:ma="http://schemas.microsoft.com/office/2006/metadata/properties/metaAttributes">
+<xsd:schema targetNamespace="http://schemas.microsoft.com/office/2006/metadata/properties" ma:root="true" ma:fieldsID="d85cc20ff16b963c181b52334066a227" ns2:_="" ns3:_="" ns4:_="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:p="http://schemas.microsoft.com/office/2006/metadata/properties" xmlns:ns2="3831ab7b-39f8-415b-8ec4-71d24134726f" xmlns:ns3="069d9e3e-d077-45a6-94cc-4bfc27673df4" xmlns:ns4="33a66c17-875f-4055-b5bf-62185316e6f5">
+<xsd:import namespace="3831ab7b-39f8-415b-8ec4-71d24134726f"/>
+<xsd:import namespace="069d9e3e-d077-45a6-94cc-4bfc27673df4"/>
+<xsd:import namespace="33a66c17-875f-4055-b5bf-62185316e6f5"/>
+<xsd:element name="properties">
 <xsd:complexType>
 <xsd:sequence>
-<xsd:element name=3D"documentManagement">
+<xsd:element name="documentManagement">
 <xsd:complexType>
 <xsd:all>
-<xsd:element ref=3D"ns2:MediaServiceMetadata" minOccurs=3D"0"/>
-<xsd:element ref=3D"ns2:MediaServiceFastMetadata" minOccurs=3D"0"/>
-<xsd:element ref=3D"ns2:MediaServiceAutoTags" minOccurs=3D"0"/>
-<xsd:element ref=3D"ns2:MediaServiceOCR" minOccurs=3D"0"/>
-<xsd:element ref=3D"ns2:MediaServiceGenerationTime" minOccurs=3D"0"/>
-<xsd:element ref=3D"ns2:MediaServiceEventHashCode" minOccurs=3D"0"/>
-<xsd:element ref=3D"ns3:SharedWithUsers" minOccurs=3D"0"/>
-<xsd:element ref=3D"ns3:SharedWithDetails" minOccurs=3D"0"/>
-<xsd:element ref=3D"ns4:MediaServiceDateTaken" minOccurs=3D"0"/>
-<xsd:element ref=3D"ns4:MediaLengthInSeconds" minOccurs=3D"0"/>
-<xsd:element ref=3D"ns4:MediaServiceLocation" minOccurs=3D"0"/>
+<xsd:element ref="ns2:MediaServiceMetadata" minOccurs="0"/>
+<xsd:element ref="ns2:MediaServiceFastMetadata" minOccurs="0"/>
+<xsd:element ref="ns2:MediaServiceAutoTags" minOccurs="0"/>
+<xsd:element ref="ns2:MediaServiceOCR" minOccurs="0"/>
+<xsd:element ref="ns2:MediaServiceGenerationTime" minOccurs="0"/>
+<xsd:element ref="ns2:MediaServiceEventHashCode" minOccurs="0"/>
+<xsd:element ref="ns3:SharedWithUsers" minOccurs="0"/>
+<xsd:element ref="ns3:SharedWithDetails" minOccurs="0"/>
+<xsd:element ref="ns4:MediaServiceDateTaken" minOccurs="0"/>
+<xsd:element ref="ns4:MediaLengthInSeconds" minOccurs="0"/>
+<xsd:element ref="ns4:MediaServiceLocation" minOccurs="0"/>
 </xsd:all>
 </xsd:complexType>
 </xsd:element>
@@ -39,83 +27,56 @@ ab7b-39f8-415b-8ec4-71d24134726f" xmlns:ns3=3D"069d9e3e-d077-45a6-94cc-4bfc=
 </xsd:complexType>
 </xsd:element>
 </xsd:schema>
-<xsd:schema targetNamespace=3D"3831ab7b-39f8-415b-8ec4-71d24134726f" elemen=
-tFormDefault=3D"qualified" xmlns:xsd=3D"http://www.w3.org/2001/XMLSchema" x=
-mlns:xs=3D"http://www.w3.org/2001/XMLSchema" xmlns:dms=3D"http://schemas.mi=
-crosoft.com/office/2006/documentManagement/types" xmlns:pc=3D"http://schema=
-s.microsoft.com/office/infopath/2007/PartnerControls">
-<xsd:import namespace=3D"http://schemas.microsoft.com/office/2006/documentM=
-anagement/types"/>
-<xsd:import namespace=3D"http://schemas.microsoft.com/office/infopath/2007/=
-PartnerControls"/>
-<xsd:element name=3D"MediaServiceMetadata" ma:index=3D"8" nillable=3D"true"=
- ma:displayName=3D"MediaServiceMetadata" ma:hidden=3D"true" ma:internalName=
-=3D"MediaServiceMetadata" ma:readOnly=3D"true">
+<xsd:schema targetNamespace="3831ab7b-39f8-415b-8ec4-71d24134726f" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dms="http://schemas.microsoft.com/office/2006/documentManagement/types" xmlns:pc="http://schemas.microsoft.com/office/infopath/2007/PartnerControls">
+<xsd:import namespace="http://schemas.microsoft.com/office/2006/documentManagement/types"/>
+<xsd:import namespace="http://schemas.microsoft.com/office/infopath/2007/PartnerControls"/>
+<xsd:element name="MediaServiceMetadata" ma:index="8" nillable="true" ma:displayName="MediaServiceMetadata" ma:hidden="true" ma:internalName="MediaServiceMetadata" ma:readOnly="true">
 <xsd:simpleType>
-<xsd:restriction base=3D"dms:Note"/>
+<xsd:restriction base="dms:Note"/>
 </xsd:simpleType>
 </xsd:element>
-<xsd:element name=3D"MediaServiceFastMetadata" ma:index=3D"9" nillable=3D"t=
-rue" ma:displayName=3D"MediaServiceFastMetadata" ma:hidden=3D"true" ma:inte=
-rnalName=3D"MediaServiceFastMetadata" ma:readOnly=3D"true">
+<xsd:element name="MediaServiceFastMetadata" ma:index="9" nillable="true" ma:displayName="MediaServiceFastMetadata" ma:hidden="true" ma:internalName="MediaServiceFastMetadata" ma:readOnly="true">
 <xsd:simpleType>
-<xsd:restriction base=3D"dms:Note"/>
+<xsd:restriction base="dms:Note"/>
 </xsd:simpleType>
 </xsd:element>
-<xsd:element name=3D"MediaServiceAutoTags" ma:index=3D"10" nillable=3D"true=
-" ma:displayName=3D"Tags" ma:internalName=3D"MediaServiceAutoTags" ma:readO=
-nly=3D"true">
+<xsd:element name="MediaServiceAutoTags" ma:index="10" nillable="true" ma:displayName="Tags" ma:internalName="MediaServiceAutoTags" ma:readOnly="true">
 <xsd:simpleType>
-<xsd:restriction base=3D"dms:Text"/>
+<xsd:restriction base="dms:Text"/>
 </xsd:simpleType>
 </xsd:element>
-<xsd:element name=3D"MediaServiceOCR" ma:index=3D"11" nillable=3D"true" ma:=
-displayName=3D"Extracted Text" ma:internalName=3D"MediaServiceOCR" ma:readO=
-nly=3D"true">
+<xsd:element name="MediaServiceOCR" ma:index="11" nillable="true" ma:displayName="Extracted Text" ma:internalName="MediaServiceOCR" ma:readOnly="true">
 <xsd:simpleType>
-<xsd:restriction base=3D"dms:Note">
-<xsd:maxLength value=3D"255"/>
+<xsd:restriction base="dms:Note">
+<xsd:maxLength value="255"/>
 </xsd:restriction>
 </xsd:simpleType>
 </xsd:element>
-<xsd:element name=3D"MediaServiceGenerationTime" ma:index=3D"12" nillable=
-=3D"true" ma:displayName=3D"MediaServiceGenerationTime" ma:hidden=3D"true" =
-ma:internalName=3D"MediaServiceGenerationTime" ma:readOnly=3D"true">
+<xsd:element name="MediaServiceGenerationTime" ma:index="12" nillable="true" ma:displayName="MediaServiceGenerationTime" ma:hidden="true" ma:internalName="MediaServiceGenerationTime" ma:readOnly="true">
 <xsd:simpleType>
-<xsd:restriction base=3D"dms:Text"/>
+<xsd:restriction base="dms:Text"/>
 </xsd:simpleType>
 </xsd:element>
-<xsd:element name=3D"MediaServiceEventHashCode" ma:index=3D"13" nillable=3D=
-"true" ma:displayName=3D"MediaServiceEventHashCode" ma:hidden=3D"true" ma:i=
-nternalName=3D"MediaServiceEventHashCode" ma:readOnly=3D"true">
+<xsd:element name="MediaServiceEventHashCode" ma:index="13" nillable="true" ma:displayName="MediaServiceEventHashCode" ma:hidden="true" ma:internalName="MediaServiceEventHashCode" ma:readOnly="true">
 <xsd:simpleType>
-<xsd:restriction base=3D"dms:Text"/>
+<xsd:restriction base="dms:Text"/>
 </xsd:simpleType>
 </xsd:element>
 </xsd:schema>
-<xsd:schema targetNamespace=3D"069d9e3e-d077-45a6-94cc-4bfc27673df4" elemen=
-tFormDefault=3D"qualified" xmlns:xsd=3D"http://www.w3.org/2001/XMLSchema" x=
-mlns:xs=3D"http://www.w3.org/2001/XMLSchema" xmlns:dms=3D"http://schemas.mi=
-crosoft.com/office/2006/documentManagement/types" xmlns:pc=3D"http://schema=
-s.microsoft.com/office/infopath/2007/PartnerControls">
-<xsd:import namespace=3D"http://schemas.microsoft.com/office/2006/documentM=
-anagement/types"/>
-<xsd:import namespace=3D"http://schemas.microsoft.com/office/infopath/2007/=
-PartnerControls"/>
-<xsd:element name=3D"SharedWithUsers" ma:index=3D"14" nillable=3D"true" ma:=
-displayName=3D"Shared With" ma:internalName=3D"SharedWithUsers" ma:readOnly=
-=3D"true">
+<xsd:schema targetNamespace="069d9e3e-d077-45a6-94cc-4bfc27673df4" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dms="http://schemas.microsoft.com/office/2006/documentManagement/types" xmlns:pc="http://schemas.microsoft.com/office/infopath/2007/PartnerControls">
+<xsd:import namespace="http://schemas.microsoft.com/office/2006/documentManagement/types"/>
+<xsd:import namespace="http://schemas.microsoft.com/office/infopath/2007/PartnerControls"/>
+<xsd:element name="SharedWithUsers" ma:index="14" nillable="true" ma:displayName="Shared With" ma:internalName="SharedWithUsers" ma:readOnly="true">
 <xsd:complexType>
 <xsd:complexContent>
-<xsd:extension base=3D"dms:UserMulti">
+<xsd:extension base="dms:UserMulti">
 <xsd:sequence>
-<xsd:element name=3D"UserInfo" minOccurs=3D"0" maxOccurs=3D"unbounded">
+<xsd:element name="UserInfo" minOccurs="0" maxOccurs="unbounded">
 <xsd:complexType>
 <xsd:sequence>
-<xsd:element name=3D"DisplayName" type=3D"xsd:string" minOccurs=3D"0"/>
-<xsd:element name=3D"AccountId" type=3D"dms:UserId" minOccurs=3D"0" nillabl=
-e=3D"true"/>
-<xsd:element name=3D"AccountType" type=3D"xsd:string" minOccurs=3D"0"/>
+<xsd:element name="DisplayName" type="xsd:string" minOccurs="0"/>
+<xsd:element name="AccountId" type="dms:UserId" minOccurs="0" nillable="true"/>
+<xsd:element name="AccountType" type="xsd:string" minOccurs="0"/>
 </xsd:sequence>
 </xsd:complexType>
 </xsd:element>
@@ -124,166 +85,127 @@ e=3D"true"/>
 </xsd:complexContent>
 </xsd:complexType>
 </xsd:element>
-<xsd:element name=3D"SharedWithDetails" ma:index=3D"15" nillable=3D"true" m=
-a:displayName=3D"Shared With Details" ma:internalName=3D"SharedWithDetails"=
- ma:readOnly=3D"true">
+<xsd:element name="SharedWithDetails" ma:index="15" nillable="true" ma:displayName="Shared With Details" ma:internalName="SharedWithDetails" ma:readOnly="true">
 <xsd:simpleType>
-<xsd:restriction base=3D"dms:Note">
-<xsd:maxLength value=3D"255"/>
+<xsd:restriction base="dms:Note">
+<xsd:maxLength value="255"/>
 </xsd:restriction>
 </xsd:simpleType>
 </xsd:element>
 </xsd:schema>
-<xsd:schema targetNamespace=3D"33a66c17-875f-4055-b5bf-62185316e6f5" elemen=
-tFormDefault=3D"qualified" xmlns:xsd=3D"http://www.w3.org/2001/XMLSchema" x=
-mlns:xs=3D"http://www.w3.org/2001/XMLSchema" xmlns:dms=3D"http://schemas.mi=
-crosoft.com/office/2006/documentManagement/types" xmlns:pc=3D"http://schema=
-s.microsoft.com/office/infopath/2007/PartnerControls">
-<xsd:import namespace=3D"http://schemas.microsoft.com/office/2006/documentM=
-anagement/types"/>
-<xsd:import namespace=3D"http://schemas.microsoft.com/office/infopath/2007/=
-PartnerControls"/>
-<xsd:element name=3D"MediaServiceDateTaken" ma:index=3D"16" nillable=3D"tru=
-e" ma:displayName=3D"MediaServiceDateTaken" ma:hidden=3D"true" ma:internalN=
-ame=3D"MediaServiceDateTaken" ma:readOnly=3D"true">
+<xsd:schema targetNamespace="33a66c17-875f-4055-b5bf-62185316e6f5" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dms="http://schemas.microsoft.com/office/2006/documentManagement/types" xmlns:pc="http://schemas.microsoft.com/office/infopath/2007/PartnerControls">
+<xsd:import namespace="http://schemas.microsoft.com/office/2006/documentManagement/types"/>
+<xsd:import namespace="http://schemas.microsoft.com/office/infopath/2007/PartnerControls"/>
+<xsd:element name="MediaServiceDateTaken" ma:index="16" nillable="true" ma:displayName="MediaServiceDateTaken" ma:hidden="true" ma:internalName="MediaServiceDateTaken" ma:readOnly="true">
 <xsd:simpleType>
-<xsd:restriction base=3D"dms:Text"/>
+<xsd:restriction base="dms:Text"/>
 </xsd:simpleType>
 </xsd:element>
-<xsd:element name=3D"MediaLengthInSeconds" ma:index=3D"17" nillable=3D"true=
-" ma:displayName=3D"Length (seconds)" ma:internalName=3D"MediaLengthInSecon=
-ds" ma:readOnly=3D"true">
+<xsd:element name="MediaLengthInSeconds" ma:index="17" nillable="true" ma:displayName="Length (seconds)" ma:internalName="MediaLengthInSeconds" ma:readOnly="true">
 <xsd:simpleType>
-<xsd:restriction base=3D"dms:Unknown"/>
+<xsd:restriction base="dms:Unknown"/>
 </xsd:simpleType>
 </xsd:element>
-<xsd:element name=3D"MediaServiceLocation" ma:index=3D"18" nillable=3D"true=
-" ma:displayName=3D"Location" ma:internalName=3D"MediaServiceLocation" ma:r=
-eadOnly=3D"true">
+<xsd:element name="MediaServiceLocation" ma:index="18" nillable="true" ma:displayName="Location" ma:internalName="MediaServiceLocation" ma:readOnly="true">
 <xsd:simpleType>
-<xsd:restriction base=3D"dms:Text"/>
+<xsd:restriction base="dms:Text"/>
 </xsd:simpleType>
 </xsd:element>
 </xsd:schema>
-<xsd:schema targetNamespace=3D"http://schemas.openxmlformats.org/package/20=
-06/metadata/core-properties" elementFormDefault=3D"qualified" attributeForm=
-Default=3D"unqualified" blockDefault=3D"#all" xmlns=3D"http://schemas.openx=
-mlformats.org/package/2006/metadata/core-properties" xmlns:xsd=3D"http://ww=
-w.w3.org/2001/XMLSchema" xmlns:xsi=3D"http://www.w3.org/2001/XMLSchema-inst=
-ance" xmlns:dc=3D"http://purl.org/dc/elements/1.1/" xmlns:dcterms=3D"http:/=
-/purl.org/dc/terms/" xmlns:odoc=3D"http://schemas.microsoft.com/internal/ob=
-d">
-<xsd:import namespace=3D"http://purl.org/dc/elements/1.1/" schemaLocation=
-=3D"http://dublincore.org/schemas/xmls/qdc/2003/04/02/dc.xsd"/>
-<xsd:import namespace=3D"http://purl.org/dc/terms/" schemaLocation=3D"http:=
-//dublincore.org/schemas/xmls/qdc/2003/04/02/dcterms.xsd"/>
-<xsd:element name=3D"coreProperties" type=3D"CT_coreProperties"/>
-<xsd:complexType name=3D"CT_coreProperties">
+<xsd:schema targetNamespace="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" elementFormDefault="qualified" attributeFormDefault="unqualified" blockDefault="#all" xmlns="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:odoc="http://schemas.microsoft.com/internal/obd">
+<xsd:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2003/04/02/dc.xsd"/>
+<xsd:import namespace="http://purl.org/dc/terms/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2003/04/02/dcterms.xsd"/>
+<xsd:element name="coreProperties" type="CT_coreProperties"/>
+<xsd:complexType name="CT_coreProperties">
 <xsd:all>
-<xsd:element ref=3D"dc:creator" minOccurs=3D"0" maxOccurs=3D"1"/>
-<xsd:element ref=3D"dcterms:created" minOccurs=3D"0" maxOccurs=3D"1"/>
-<xsd:element ref=3D"dc:identifier" minOccurs=3D"0" maxOccurs=3D"1"/>
-<xsd:element name=3D"contentType" minOccurs=3D"0" maxOccurs=3D"1" type=3D"x=
-sd:string" ma:index=3D"0" ma:displayName=3D"Content Type"/>
-<xsd:element ref=3D"dc:title" minOccurs=3D"0" maxOccurs=3D"1" ma:index=3D"4=
-" ma:displayName=3D"Title"/>
-<xsd:element ref=3D"dc:subject" minOccurs=3D"0" maxOccurs=3D"1"/>
-<xsd:element ref=3D"dc:description" minOccurs=3D"0" maxOccurs=3D"1"/>
-<xsd:element name=3D"keywords" minOccurs=3D"0" maxOccurs=3D"1" type=3D"xsd:=
-string"/>
-<xsd:element ref=3D"dc:language" minOccurs=3D"0" maxOccurs=3D"1"/>
-<xsd:element name=3D"category" minOccurs=3D"0" maxOccurs=3D"1" type=3D"xsd:=
-string"/>
-<xsd:element name=3D"version" minOccurs=3D"0" maxOccurs=3D"1" type=3D"xsd:s=
-tring"/>
-<xsd:element name=3D"revision" minOccurs=3D"0" maxOccurs=3D"1" type=3D"xsd:=
-string">
+<xsd:element ref="dc:creator" minOccurs="0" maxOccurs="1"/>
+<xsd:element ref="dcterms:created" minOccurs="0" maxOccurs="1"/>
+<xsd:element ref="dc:identifier" minOccurs="0" maxOccurs="1"/>
+<xsd:element name="contentType" minOccurs="0" maxOccurs="1" type="xsd:string" ma:index="0" ma:displayName="Content Type"/>
+<xsd:element ref="dc:title" minOccurs="0" maxOccurs="1" ma:index="4" ma:displayName="Title"/>
+<xsd:element ref="dc:subject" minOccurs="0" maxOccurs="1"/>
+<xsd:element ref="dc:description" minOccurs="0" maxOccurs="1"/>
+<xsd:element name="keywords" minOccurs="0" maxOccurs="1" type="xsd:string"/>
+<xsd:element ref="dc:language" minOccurs="0" maxOccurs="1"/>
+<xsd:element name="category" minOccurs="0" maxOccurs="1" type="xsd:string"/>
+<xsd:element name="version" minOccurs="0" maxOccurs="1" type="xsd:string"/>
+<xsd:element name="revision" minOccurs="0" maxOccurs="1" type="xsd:string">
 <xsd:annotation>
 <xsd:documentation>
-                        This value indicates the number of saves or revisio=
-ns. The application is responsible for updating this value after each revis=
-ion.
+                        This value indicates the number of saves or revisions. The application is responsible for updating this value after each revision.
                     </xsd:documentation>
 </xsd:annotation>
 </xsd:element>
-<xsd:element name=3D"lastModifiedBy" minOccurs=3D"0" maxOccurs=3D"1" type=
-=3D"xsd:string"/>
-<xsd:element ref=3D"dcterms:modified" minOccurs=3D"0" maxOccurs=3D"1"/>
-<xsd:element name=3D"contentStatus" minOccurs=3D"0" maxOccurs=3D"1" type=3D=
-"xsd:string"/>
+<xsd:element name="lastModifiedBy" minOccurs="0" maxOccurs="1" type="xsd:string"/>
+<xsd:element ref="dcterms:modified" minOccurs="0" maxOccurs="1"/>
+<xsd:element name="contentStatus" minOccurs="0" maxOccurs="1" type="xsd:string"/>
 </xsd:all>
 </xsd:complexType>
 </xsd:schema>
-<xs:schema targetNamespace=3D"http://schemas.microsoft.com/office/infopath/=
-2007/PartnerControls" elementFormDefault=3D"qualified" attributeFormDefault=
-=3D"unqualified" xmlns:pc=3D"http://schemas.microsoft.com/office/infopath/2=
-007/PartnerControls" xmlns:xs=3D"http://www.w3.org/2001/XMLSchema">
-<xs:element name=3D"Person">
+<xs:schema targetNamespace="http://schemas.microsoft.com/office/infopath/2007/PartnerControls" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:pc="http://schemas.microsoft.com/office/infopath/2007/PartnerControls" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="Person">
 <xs:complexType>
 <xs:sequence>
-<xs:element ref=3D"pc:DisplayName" minOccurs=3D"0"></xs:element>
-<xs:element ref=3D"pc:AccountId" minOccurs=3D"0"></xs:element>
-<xs:element ref=3D"pc:AccountType" minOccurs=3D"0"></xs:element>
+<xs:element ref="pc:DisplayName" minOccurs="0"></xs:element>
+<xs:element ref="pc:AccountId" minOccurs="0"></xs:element>
+<xs:element ref="pc:AccountType" minOccurs="0"></xs:element>
 </xs:sequence>
 </xs:complexType>
 </xs:element>
-<xs:element name=3D"DisplayName" type=3D"xs:string"></xs:element>
-<xs:element name=3D"AccountId" type=3D"xs:string"></xs:element>
-<xs:element name=3D"AccountType" type=3D"xs:string"></xs:element>
-<xs:element name=3D"BDCAssociatedEntity">
+<xs:element name="DisplayName" type="xs:string"></xs:element>
+<xs:element name="AccountId" type="xs:string"></xs:element>
+<xs:element name="AccountType" type="xs:string"></xs:element>
+<xs:element name="BDCAssociatedEntity">
 <xs:complexType>
 <xs:sequence>
-<xs:element ref=3D"pc:BDCEntity" minOccurs=3D"0" maxOccurs=3D"unbounded"></=
-xs:element>
+<xs:element ref="pc:BDCEntity" minOccurs="0" maxOccurs="unbounded"></xs:element>
 </xs:sequence>
-<xs:attribute ref=3D"pc:EntityNamespace"></xs:attribute>
-<xs:attribute ref=3D"pc:EntityName"></xs:attribute>
-<xs:attribute ref=3D"pc:SystemInstanceName"></xs:attribute>
-<xs:attribute ref=3D"pc:AssociationName"></xs:attribute>
+<xs:attribute ref="pc:EntityNamespace"></xs:attribute>
+<xs:attribute ref="pc:EntityName"></xs:attribute>
+<xs:attribute ref="pc:SystemInstanceName"></xs:attribute>
+<xs:attribute ref="pc:AssociationName"></xs:attribute>
 </xs:complexType>
 </xs:element>
-<xs:attribute name=3D"EntityNamespace" type=3D"xs:string"></xs:attribute>
-<xs:attribute name=3D"EntityName" type=3D"xs:string"></xs:attribute>
-<xs:attribute name=3D"SystemInstanceName" type=3D"xs:string"></xs:attribute>
-<xs:attribute name=3D"AssociationName" type=3D"xs:string"></xs:attribute>
-<xs:element name=3D"BDCEntity">
+<xs:attribute name="EntityNamespace" type="xs:string"></xs:attribute>
+<xs:attribute name="EntityName" type="xs:string"></xs:attribute>
+<xs:attribute name="SystemInstanceName" type="xs:string"></xs:attribute>
+<xs:attribute name="AssociationName" type="xs:string"></xs:attribute>
+<xs:element name="BDCEntity">
 <xs:complexType>
 <xs:sequence>
-<xs:element ref=3D"pc:EntityDisplayName" minOccurs=3D"0"></xs:element>
-<xs:element ref=3D"pc:EntityInstanceReference" minOccurs=3D"0"></xs:element>
-<xs:element ref=3D"pc:EntityId1" minOccurs=3D"0"></xs:element>
-<xs:element ref=3D"pc:EntityId2" minOccurs=3D"0"></xs:element>
-<xs:element ref=3D"pc:EntityId3" minOccurs=3D"0"></xs:element>
-<xs:element ref=3D"pc:EntityId4" minOccurs=3D"0"></xs:element>
-<xs:element ref=3D"pc:EntityId5" minOccurs=3D"0"></xs:element>
-</xs:sequence>
-</xs:complexType>
-</xs:element>
-<xs:element name=3D"EntityDisplayName" type=3D"xs:string"></xs:element>
-<xs:element name=3D"EntityInstanceReference" type=3D"xs:string"></xs:elemen=
-t>
-<xs:element name=3D"EntityId1" type=3D"xs:string"></xs:element>
-<xs:element name=3D"EntityId2" type=3D"xs:string"></xs:element>
-<xs:element name=3D"EntityId3" type=3D"xs:string"></xs:element>
-<xs:element name=3D"EntityId4" type=3D"xs:string"></xs:element>
-<xs:element name=3D"EntityId5" type=3D"xs:string"></xs:element>
-<xs:element name=3D"Terms">
-<xs:complexType>
-<xs:sequence>
-<xs:element ref=3D"pc:TermInfo" minOccurs=3D"0" maxOccurs=3D"unbounded"></x=
-s:element>
+<xs:element ref="pc:EntityDisplayName" minOccurs="0"></xs:element>
+<xs:element ref="pc:EntityInstanceReference" minOccurs="0"></xs:element>
+<xs:element ref="pc:EntityId1" minOccurs="0"></xs:element>
+<xs:element ref="pc:EntityId2" minOccurs="0"></xs:element>
+<xs:element ref="pc:EntityId3" minOccurs="0"></xs:element>
+<xs:element ref="pc:EntityId4" minOccurs="0"></xs:element>
+<xs:element ref="pc:EntityId5" minOccurs="0"></xs:element>
 </xs:sequence>
 </xs:complexType>
 </xs:element>
-<xs:element name=3D"TermInfo">
+<xs:element name="EntityDisplayName" type="xs:string"></xs:element>
+<xs:element name="EntityInstanceReference" type="xs:string"></xs:element>
+<xs:element name="EntityId1" type="xs:string"></xs:element>
+<xs:element name="EntityId2" type="xs:string"></xs:element>
+<xs:element name="EntityId3" type="xs:string"></xs:element>
+<xs:element name="EntityId4" type="xs:string"></xs:element>
+<xs:element name="EntityId5" type="xs:string"></xs:element>
+<xs:element name="Terms">
 <xs:complexType>
 <xs:sequence>
-<xs:element ref=3D"pc:TermName" minOccurs=3D"0"></xs:element>
-<xs:element ref=3D"pc:TermId" minOccurs=3D"0"></xs:element>
+<xs:element ref="pc:TermInfo" minOccurs="0" maxOccurs="unbounded"></xs:element>
 </xs:sequence>
 </xs:complexType>
 </xs:element>
-<xs:element name=3D"TermName" type=3D"xs:string"></xs:element>
-<xs:element name=3D"TermId" type=3D"xs:string"></xs:element>
+<xs:element name="TermInfo">
+<xs:complexType>
+<xs:sequence>
+<xs:element ref="pc:TermName" minOccurs="0"></xs:element>
+<xs:element ref="pc:TermId" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="TermName" type="xs:string"></xs:element>
+<xs:element name="TermId" type="xs:string"></xs:element>
 </xs:schema>
 </ct:contentTypeSchema>

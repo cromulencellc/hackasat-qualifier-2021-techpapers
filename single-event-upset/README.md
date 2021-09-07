@@ -10,7 +10,7 @@
 
 
 
-![](3D"SingleEventUpsetQualsTechnicalPaper_files/image002.png")  
+![](./image002.png)  
   
 
 
@@ -19,7 +19,7 @@
 
 
 
-Qual= ification Event Technical Paper
+Qualification Event Technical Paper
 
 
 
@@ -31,29 +31,28 @@ Qual= ification Event Technical Paper
 
 
 
-SingleEventU= pset
+SingleEventUpset
 
   
 
 
 
-The following 5 write-ups were assembled by the Hack-a= -Sat2 2021 team
+The following 5 write-ups were assembled by the Hack-a-Sat2 2021 team
 SingleEventUpset.
 
 Table of Contents
 
-[Hack-a-Sat2 Qualif= ier 2021:� credence clearwater space d= ata systems.
-4](3D"#_Toc77153027")=
+Hack-a-Sat2 Qualifier 2021: credence clearwater space data systems. 4
 
-[Hack-a-Sat2 Qualifier 2021:� Take Out the Trash. 9](3D"#_T=)=
+Hack-a-Sat2 Qualifier 2021: Take Out the Trash. 9
 
-[Hack-a-Sat2 Qualifier 2021:� groundead. 15](3D"#_T=)=
+Hack-a-Sat2 Qualifier 2021: groundead. 15
 
-[Hack-a-Sat2 Qualifier 2021:� Fiddlin' John Carson. 18](3D"#_T=)=
+Hack-a-Sat2 Qualifier 2021: Fiddlin' John Carson. 18
 
-[Hack-a-Sat2 Qualifier 2021:� Cotton Eye GEO.. 20](3D"#_T=)=
+Hack-a-Sat2 Qualifier 2021: Cotton Eye GEO.. 20
 
- <= /o:p>
+
 
 
 
@@ -61,460 +60,480 @@ Table of Contents
 
 
 
-# Hack-a-Sat2 Qualifier 2021:� credence clearwater space data systems<= /a>
+# Hack-a-Sat2 Qualifier 2021: credence clearwater space data systems
 
   
-**Category** :� We're On the Same Wavelength
+**Category** : We're On the Same Wavelength
 
-**Points: � 155
+**Points: **155
 
-**Solves: � 21
+**Solves: **21
 
 **Description:**
 
-We've captured this noisy IQ data from a satellite and= need to decode it.
-Figure out how to filter the noise while maintaining the sign= al
+We've captured this noisy IQ data from a satellite and need to decode it.
+Figure out how to filter the noise while maintaining the signal
 characteristics, then demodulate and decode the signal to get the flag. The
-satellite is transmitting using asynchronous markers in CCSDS space packets=
+satellite is transmitting using asynchronous markers in CCSDS space packets
 and an unknown modulation.
 
 **Files:**
 
-�        [https://generated.2021.hackasat.com/noise/noise-
-romeo411892zulu2.tar=
-.bz2](3D"https://generated.2021.hackasat.com/noise/noise-romeo411892zulu2.ta=)
+ï¿½        <https://generated.2021.hackasat.com/noise/noise-
+romeo411892zulu2.tar.bz2>
 
 ## Write-up
 
 _By Jason, part of the SingleEventUpset team_
 
-The chall= enge provides one file: noise-romeo411892zulu2.tar.bz2 which is a
-bzip2 compress= ed tarball archive. _The challenge is self-contained �= with
-the flag residing in the demodulated data decoded as ASCII characters._ =
+The challenge provides one file: noise-romeo411892zulu2.tar.bz2 which is a
+bzip2 compressed tarball archive. _The challenge is self-contained with the
+flag residing in the demodulated data decoded as ASCII characters._
 
 ## Analysis
 
-Extractin= g the file with standard file archive utilities (e.g., 7zip) yields
-a single directory containing the file iqdata.txt. Viewing the file iqdata.txt
-in a = text editor shows that it contains plaintext floating-point complex in-
-phase and quadrature (I/Q) samples in the format ivalue+qvaluej<= /span>,
-which can be directly read into many signal processing and analysis tools or
-scripting languages. GNU Octave is used to process the data in this solutio=
-n.
+Extracting the file with standard file archive utilities (e.g., 7zip) yields a
+single directory containing the file iqdata.txt. Viewing the file iqdata.txt
+in a text editor shows that it contains plaintext floating-point complex in-
+phase and quadrature (I/Q) samples in the format ivalue+qvaluej, which can be
+directly read into many signal processing and analysis tools or scripting
+languages. GNU Octave is used to process the data in this solution.
 
-Viewing t= he power spectral density (shown in Figure 1) indicates that the
-captured I/Q data is likely a variant of phase shift key= ing (PSK) or minimum
-shift keying (MSK). Given that the problem statement refer= s to the CCSDS
+Viewing the power spectral density (shown in Figure 1) indicates that the
+captured I/Q data is likely a variant of phase shift keying (PSK) or minimum
+shift keying (MSK). Given that the problem statement refers to the CCSDS
 standard, Quadrature Phase Shift Keying (QPSK) is the most likely candidate
-and is used as a starting point for the analysis. Both standard Q= PSK and
+and is used as a starting point for the analysis. Both standard QPSK and
 differential QPSK (DQPSK) are analyzed.
 
-We plot a= n eye diagram to get an estimate of the oversampling ratio (OSR)
-also referred to= as the number of samples per symbol (SPS). The SPS can be
-any positive fractional/rational number, but to provide sufficient
-synchronization fidel= ity and keep hardware complexity low, most
-communications systems use a whole number (often a power of two) value for the
-SPS that is greater than or equ= al to four. The eye diagram shown in Figure 2
-confirms that the SPS for this signal capture is four and that the assumpti=
-on of PSK or differential PSK (and not offset PSK or MSK) is likely correct
-as= the I and Q eyes are aligned in time with no offset.
-
-&nb;= sp;
-
-![](3D"SingleEventUpsetQualsTechnicalPaper_files/image004.jpg")
-
-Figure 1: Power Spectral Density of Capt= ured Signal
+We plot an eye diagram to get an estimate of the oversampling ratio (OSR) also
+referred to as the number of samples per symbol (SPS). The SPS can be any
+positive fractional/rational number, but to provide sufficient synchronization
+fidelity and keep hardware complexity low, most communications systems use a
+whole number (often a power of two) value for the SPS that is greater than or
+equal to four. The eye diagram shown in Figure 2 confirms that the SPS for
+this signal capture is four and that the assumption of PSK or differential PSK
+(and not offset PSK or MSK) is likely correct as the I and Q eyes are aligned
+in time with no offset.
 
 
 
-![](3D"SingleEventUpsetQualsTechnicalPaper_files/image006.jpg")
+![](./image004.jpg)
 
-Figure 2: Eye Diagram of Captured Signal=
+Figure 1: Power Spectral Density of Captured Signal
+
+
+
+![](./image006.jpg)
+
+Figure 2: Eye Diagram of Captured Signal
 
 Given the integer oversample rate and lack of frequency error, by choosing an
-appropriate starting sample it is possible = to demodulate the data simply by
-decimating by a factor of four, taking the si= gn of both I and Q samples to
-get hard decision bits, interleaving the resulti= ng I and Q hard decision
-bits, and packing the bits into bytes before decoding t= hem as ASCII
-characters. If the QPSK assumption is correct _and_ if there = is no forward
-error correction coding applied to the data, then the remaining unknowns are
-the constellation mapping and bit packing order. A QPSK (or DQ= PSK)
-modulation type is confirmed by inspecting the constellation diagram shown =
-in Figure 3.
+appropriate starting sample it is possible to demodulate the data simply by
+decimating by a factor of four, taking the sign of both I and Q samples to get
+hard decision bits, interleaving the resulting I and Q hard decision bits, and
+packing the bits into bytes before decoding them as ASCII characters. If the
+QPSK assumption is correct _and_ if there is no forward error correction
+coding applied to the data, then the remaining unknowns are the constellation
+mapping and bit packing order. A QPSK (or DQPSK) modulation type is confirmed
+by inspecting the constellation diagram shown in Figure 3.
 
-![](3D"SingleEventUpsetQualsTechnicalPaper_files/image008.jpg")
+![](./image008.jpg)
 
-Figure 3: Constellation Diagram of Captu= red Signal
+Figure 3: Constellation Diagram of Captured Signal
 
-The problem statement indicates that CCSDS frami= ng markers are present in
-the demodulated data. From the CCSDS specification (= _TM SYNCHRONIZATION AND
+The problem statement indicates that CCSDS framing markers are present in the
+demodulated data. From the CCSDS specification ( _TM SYNCHRONIZATION AND
 CHANNEL CODING_ ) the base ASM marker is given as 0x1ACFFC1D for uncoded data,
 convolutional, Reed-Solomon, concatenated, rate-7/8 LDPC for Transfer Frame,
-and all LDPC with SMTF stream coded data.= If this ASM marker is found, then
-the data _may_ be uncoded. If the data = is uncoded, then the demodulated data
-can be directly mapped to ASCII to find the flag.= If a different CCSDS ASM
+and all LDPC with SMTF stream coded data. If this ASM marker is found, then
+the data _may_ be uncoded. If the data is uncoded, then the demodulated data
+can be directly mapped to ASCII to find the flag. If a different CCSDS ASM
 marker is found or if the demodulated data does not result in intelligible
-ASCII characters, then the data is likely forward er= ror correction coded and
+ASCII characters, then the data is likely forward error correction coded and
 additional decoding would be necessary to extract the flag. The solution given
 below starts from the assumption that the data is uncoded and performs a
 brute-force search of possible starting samples, constellation mappings and
-bit (2-bit dibit) to byte packing orders. The fl= ag is found using the above
+bit (2-bit dibit) to byte packing orders. The flag is found using the above
 assumptions (uncoded QPSK at four SPS), so no additional processing is
 performed in this solution.
 
-## Solu= tion
+## Solution
 
-1.&n;= bsp;     Read in samples from the challenge file and = plot the power
-spectral density and eye diagram for analysis. Use 4 samples per symbol based
-on eye diagram.
+1.      Read in samples from the challenge file and plot the power spectral density and eye diagram for analysis. Use 4 samples per symbol based on eye diagram.
 
-2.&n;= bsp;     A delay-conjugate-multiply (DCM) operation is applied to
-perform differential demodulation but is not needed. The DCM operation is
-provided in the case that a standard QPSK demodulation did not= yield
-intelligible results.
+2.      A delay-conjugate-multiply (DCM) operation is applied to perform differential demodulation but is not needed. The DCM operation is provided in the case that a standard QPSK demodulation did not yield intelligible results.
 
-3.&n;= bsp;     Decimate the input samples by 4. Verify QPSK= (or DQPSK)
-assumption by inspecting constellation diagram.
+3.      Decimate the input samples by 4. Verify QPSK (or DQPSK) assumption by inspecting constellation diagram.
 
-4.&n;= bsp;     Use GNU Octave�s built-in function �perms� to find all
-permutations of a QPSK constellation (24 permutations found of the= vector [0,
-1, 2, 3]).
+4.      Use GNU Octaveï¿½s built-in function ï¿½perms to find all permutations of a QPSK constellation (24 permutations found of the vector [0, 1, 2, 3]).
 
-5.&n;= bsp;     Loop over all constellation permutations. For each
-permutation, loop over all decimated samples, generating two hard deci= sion
-bits (dibits) of data per decimated symbol based on the sign (signum functi=
-on) of the I and Q data. Append dibits to create a bit vector of all
-demodulate= d, decoded data.
+5.      Loop over all constellation permutations. For each permutation, loop over all decimated samples, generating two hard decision bits (dibits) of data per decimated symbol based on the sign (signum function) of the I and Q data. Append dibits to create a bit vector of all demodulated, decoded data.
 
-6.&n;= bsp;     For a given permutation, loop over starting sample indices to
-find a sample index that results in a decodable ASM marke= r. Our solution
-found a decodable ASM marker and ASCII string using sample zero (zero based
-indexing) as the starting sample.
+6.      For a given permutation, loop over starting sample indices to find a sample index that results in a decodable ASM marker. Our solution found a decodable ASM marker and ASCII string using sample zero (zero based indexing) as the starting sample.
 
-7.&n;= bsp;     For a given permutation, attempt to pack 2-b= it dibits into a
-byte in possible orders (4 possible dibit packing orders). Se= arch each
-constellation permutation and dibit byte packing order for the ASM mar= ker
-0x1ACFFC1D
+7.      For a given permutation, attempt to pack 2-bit dibits into a byte in possible orders (4 possible dibit packing orders). Search each constellation permutation and dibit byte packing order for the ASM marker 0x1ACFFC1D
 
-8.&n;= bsp;     Once a hit occurs for an ASM marker match, m= ap the bytes
-after the marker to ASCII and complete the search.
+8.      Once a hit occurs for an ASM marker match, map the bytes after the marker to ASCII and complete the search.
 
-9.&n;= bsp;     Print the ASCII characters found by the sear= ch and verify
-that a valid flag is produced. Our solution found a constellation mapping of
-[3, 0, 2, 1] and a direct dibit to byte packing (a byte contains dibits [0, 1,
-2, 3] concatenated).
+9.      Print the ASCII characters found by the search and verify that a valid flag is produced. Our solution found a constellation mapping of [3, 0, 2, 1] and a direct dibit to byte packing (a byte contains dibits [0, 1, 2, 3] concatenated).
 
-Here�s the solution script:
+Hereï¿½s the solution script:
 
     
     
     #wotsw3
     
     
-    =
     warning('off','all');
     
     
-    close a=
-    ll;
+    close all;
     
     
-    );
-    
-    
-    psdSig =3D abs(fftshift(fft(sig)));
-    
-    
-    freqs =3D linspace(-Fs/2, Fs/2, length(psdSig));
-    
-    
-    plot(freqs<=
-    code>, psdS=
-    ig);
-    
-    
-    eyediagramsig, 8, 8);
-    
-    
-    sps =3D 4;
-    
-    
-    jj =3D 1;
-    
-    
-    � dcm(jj) =3D sig(ii) .* conj(sig(ii-sps));
-    
-    
-    � jj =3D jj + 1;
+    clear variables;
     
     
      
     
     
-    asm =3D '1ACFFC1D';
+    pkg load signal
     
     
-    ordvec =3D perms([0 1=
-     2 3]);
+    pkg load communications
     
     
-    stophere =3D 0;
+     
     
     
-    � % Inelegant way of making dibit=
-    s
+    sig = dlmread('iqdata.txt');
     
     
-    � dibits =3D [];
+     
     
     
-    � for ii =3D 1:length(decimated)
+    % Look at baseband signal PSD
     
     
-    ��� if (real(decimated(ii)) > =
-    0 && imag(decimated(ii)) > 0)<=
-    /pre>
+    Fs = 1;
     
     
-    ����� dibits =3D [dibits; de2bi=
-    (ordvec(pskordering,1), 2)'];
+    psdSig = abs(fftshift(fft(sig)));
     
     
-    ��� elseif (real(decimated(ii)) &=
-    lt; 0 && imag(decimated(ii)) > 0)<=
-    /pre>
+    freqs = linspace(-Fs/2, Fs/2, length(psdSig));
     
     
-    ����� dibits =3D [dibits; de2bi=
-    (ordvec(pskordering,2), 2)'];
+    plot(freqs, psdSig);
     
     
-    ��� elseif (real(decimated(ii)) &=
-    lt; 0 && imag(decimated(ii)) < 0)<=
-    /pre>
+     
     
     
-    ����� dibits =3D [dibits; de2bi=
-    (ordvec(pskordering,3), 2)'];
+    eyediagram(sig, 8, 8);
     
     
-    ��� else=
+     
     
     
+    sps = 4;
     
-    ����� dibits =3D [dibits; de2bi=
-    (ordvec(pskordering,4), 2)'];
     
+     
     
-    ��� end<=
-    /pre>
     
+    # DCM
     
-    � end
     
+    jj = 1;
     
-    � for startidx =3D 1:200
     
+    for ii = sps+1:1:length(sig)
     
-    ��� tdibits =3D dibits(startidx:end);<=
-    /span>
     
+      dcm(jj) = sig(ii) .* conj(sig(ii-sps));
     
-    ��� tdibits =3D =
-    tdibits(1:8*floor(length(tdibits)=
-    /8));
     
+      jj = jj + 1;
     
-    ��� % 1st group=
     
+    end
     
     
-    ��� bytes =3D reshape(tdibits, length(tdibits)/8, 8);
+     
     
     
-    ��� bytesint =3D bi2de(bytes);=
+    decimated = dcm(1:sps:end);
     
     
+     
     
-    ��� temp =3D dec2hex(bytesint);
     
+    %scatterplot(decimated);
     
-    ��� temp2 =3D [];
     
+    decimated = decimated .* exp(1i*pi/4);
     
-    ��� for kk =3D 1:length(temp)
     
+    %scatterplot(decimated);
     
-    ���� temp2 =3D [temp2 temp(kk, :)];
     
+     
     
-    ��� end<=
-    /pre>
     
+    decimated = sig(1:sps:end);
     
-    ��� if (strfind(temp2, asm))
     
+    scatterplot(decimated);
     
-    ����� eng =3D char(bytesint);
     
+     
     
-    ����� stophere =3D 1;=
     
+    asm = '1ACFFC1D';
     
     
-    ��� ��break;
+     
     
     
-    ��� end
+    % Search
     
     
-    ��� % 2nd group=
+    ordvec = perms([0 1 2 3]);
     
     
+    stophere = 0;
     
-    ��� bytes =3D reshape(tdibits, length(tdibits)/8, 8);
     
+    for pskordering = 1:24
     
-    ��� bytesint =3D bi2de(fliplr=
-    (bytes));
     
+      % Inelegant way of making dibits
     
-    ��� temp =3D dec2hex(bytesint);
     
+      dibits = [];
     
-    ��� temp2 =3D [];
     
+      for ii = 1:length(decimated)
     
-    ��� for kk =3D 1:length(temp)
     
+    ï¿½ï¿½  if (real(decimated(ii)) > 0 && imag(decimated(ii)) > 0)
     
-    ���� temp2 =3D [temp2 temp(kk, :)];
     
+    ï¿½ï¿½ï¿½ï¿½  dibits = [dibits; de2bi(ordvec(pskordering,1), 2)'];
     
-    ��� end<=
-    /pre>
     
+    ï¿½ï¿½  elseif (real(decimated(ii)) < 0 && imag(decimated(ii)) > 0)
     
-    ��� if (strfind(temp2, asm))
     
+    ï¿½ï¿½ï¿½ï¿½  dibits = [dibits; de2bi(ordvec(pskordering,2), 2)'];
     
-    ����� eng =3D char(bytesint);
     
+    ï¿½ï¿½  elseif (real(decimated(ii)) < 0 && imag(decimated(ii)) < 0)
     
-    ����� stophere =3D 1;=
     
+    ï¿½ï¿½ï¿½ï¿½  dibits = [dibits; de2bi(ordvec(pskordering,3), 2)'];
     
     
-    ����� break;
+    ï¿½ï¿½  else
     
     
-    ��� end
+    ï¿½ï¿½ï¿½ï¿½  dibits = [dibits; de2bi(ordvec(pskordering,4), 2)'];
     
     
-    ��� % 3rd group=
+    ï¿½ï¿½  end
     
     
+      end
     
-    ��� bytes =3D reshape(tdibits, 8, length=
-    (tdibits)/8)';
     
+     
     
-    ��� bytesint =3D bi2de(bytes);=
     
+      for startidx = 1:200
     
     
-    ��� temp =3D dec2hex(bytesint);
+    ï¿½ï¿½  tdibits = dibits(startidx:end);
     
     
-    ��� temp2 =3D [];
+    ï¿½ï¿½  tdibits = tdibits(1:8*floor(length(tdibits)/8));
     
     
-    ��� for kk =3D 1:length(temp)
+    ï¿½ï¿½  % 1st group
     
     
-    ���� temp2 =3D [temp2 temp(kk, :)];
+    ï¿½ï¿½  bytes = reshape(tdibits, length(tdibits)/8, 8);
     
     
-    ��� end<=
-    /pre>
+    ï¿½ï¿½  bytesint = bi2de(bytes);
     
     
-    ��� if (strfind(temp2, asm))
+    ï¿½ï¿½  temp = dec2hex(bytesint);
     
     
-    ����� eng =3D char(bytesint);
+    ï¿½ï¿½  temp2 = [];
     
     
-    ����� stophere =3D 1;=
+    ï¿½ï¿½  for kk = 1:length(temp)
     
     
+    ï¿½ï¿½ï¿½  temp2 = [temp2 temp(kk, :)];
     
-    ����� break;
     
+    ï¿½ï¿½  end
     
-    ��� end
     
+    ï¿½ï¿½  if (strfind(temp2, asm))
     
-    ��� % 4th group=
     
+    ï¿½ï¿½ï¿½ï¿½  eng = char(bytesint);
     
     
-    ��� bytes =3D reshape(tdibits, 8, length=
-    (tdibits)/8)';
+    ï¿½ï¿½ï¿½ï¿½  stophere = 1;
     
     
-    ��� bytesint =3D bi2de(fliplr=
-    (bytes));
+    ï¿½ï¿½  ï¿½ï¿½break;
     
     
-    ��� temp =3D dec2hex(bytesint);
+    ï¿½ï¿½  end
     
     
-    ��� temp2 =3D [];
+    ï¿½ï¿½  % 2nd group
     
     
-    ��� for kk =3D 1:length(temp)
+    ï¿½ï¿½  bytes = reshape(tdibits, length(tdibits)/8, 8);
     
     
-    ���� temp2 =3D [temp2 temp(kk, :)];
+    ï¿½ï¿½  bytesint = bi2de(fliplr(bytes));
     
     
-    ��� end<=
-    /pre>
+    ï¿½ï¿½  temp = dec2hex(bytesint);
     
     
-    ��� if (strfind(temp2, asm))
+    ï¿½ï¿½  temp2 = [];
     
     
-    ����� eng =3D char(bytesint);
+    ï¿½ï¿½  for kk = 1:length(temp)
     
     
-    ����� stophere =3D 1;=
+    ï¿½ï¿½ï¿½  temp2 = [temp2 temp(kk, :)];
     
     
+    ï¿½ï¿½  end
     
-    ����� break;
     
+    ï¿½ï¿½  if (strfind(temp2, asm))
     
-    ��� end
     
+    ï¿½ï¿½ï¿½ï¿½  eng = char(bytesint);
     
-    ��� %eng =3D char(bytesint);
     
+    ï¿½ï¿½ï¿½ï¿½  stophere = 1;
     
-    � end
     
+    ï¿½ï¿½ï¿½ï¿½  break;
     
-    � if (stophere)
     
+    ï¿½ï¿½  end
     
-    ��� break;
     
+    ï¿½ï¿½  % 3rd group
     
-    � end
     
+    ï¿½ï¿½  bytes = reshape(tdibits, 8, length(tdibits)/8)';
     
-    eng =3D eng(11:end).';
+    
+    ï¿½ï¿½  bytesint = bi2de(bytes);
+    
+    
+    ï¿½ï¿½  temp = dec2hex(bytesint);
+    
+    
+    ï¿½ï¿½  temp2 = [];
+    
+    
+    ï¿½ï¿½  for kk = 1:length(temp)
+    
+    
+    ï¿½ï¿½ï¿½  temp2 = [temp2 temp(kk, :)];
+    
+    
+    ï¿½ï¿½  end
+    
+    
+    ï¿½ï¿½  if (strfind(temp2, asm))
+    
+    
+    ï¿½ï¿½ï¿½ï¿½  eng = char(bytesint);
+    
+    
+    ï¿½ï¿½ï¿½ï¿½  stophere = 1;
+    
+    
+    ï¿½ï¿½ï¿½ï¿½  break;
+    
+    
+    ï¿½ï¿½  end
+    
+    
+    ï¿½ï¿½  % 4th group
+    
+    
+    ï¿½ï¿½  bytes = reshape(tdibits, 8, length(tdibits)/8)';
+    
+    
+    ï¿½ï¿½  bytesint = bi2de(fliplr(bytes));
+    
+    
+    ï¿½ï¿½  temp = dec2hex(bytesint);
+    
+    
+    ï¿½ï¿½  temp2 = [];
+    
+    
+    ï¿½ï¿½  for kk = 1:length(temp)
+    
+    
+    ï¿½ï¿½ï¿½  temp2 = [temp2 temp(kk, :)];
+    
+    
+    ï¿½ï¿½  end
+    
+    
+    ï¿½ï¿½  if (strfind(temp2, asm))
+    
+    
+    ï¿½ï¿½ï¿½ï¿½  eng = char(bytesint);
+    
+    
+    ï¿½ï¿½ï¿½ï¿½  stophere = 1;
+    
+    
+    ï¿½ï¿½ï¿½ï¿½  break;
+    
+    
+    ï¿½ï¿½  end
+    
+    
+    ï¿½ï¿½  %eng = char(bytesint);
+    
+    
+      end
+    
+    
+      if (stophere)
+    
+    
+    ï¿½ï¿½  break;
+    
+    
+      end
+    
+    
+    end
+    
+    
+    eng = eng(11:end).';
 
 ` `
 
@@ -522,27 +541,26 @@ Running the script results in the flag:
 
     
     
-    flag{romeo411892zulu2:GCJSuvoUNCfNac5IhmMbREXHCFIDSHF5Qx5Eb1y-q91U13ejpyzgbL6Xzsk0RsWeIvMm5HA-yje067iYz70MxzY}=
-      
+    flag{romeo411892zulu2:GCJSuvoUNCfNac5IhmMbREXHCFIDSHF5Qx5Eb1y-q91U13ejpyzgbL6Xzsk0RsWeIvMm5HA-yje067iYz70MxzY}  
     
     
 
-# Hack-a-Sat2 Qualifier 2021:� Take Out the Trash
+# Hack-a-Sat2 Qualifier 2021: Take Out the Trash
 
   
-**Category** :� Deck 36, Main Engineering
+**Category** : Deck 36, Main Engineering
 
-**Points: � 142
+**Points: **142
 
-**Solves: � 24
+**Solves: **24
 
 **Description:**
 
-A cloud of space junk is in your constellation's orbit= al plane. Use the
-space lasers on your satellites to vaporize it! Destroy at l= east 51 pieces
-of space junk to get the flag.
+A cloud of space junk is in your constellation's orbital plane. Use the space
+lasers on your satellites to vaporize it! Destroy at least 51 pieces of space
+junk to get the flag.
 
-The lasers have a range of 100 km and must be provided= range and attitude to
+The lasers have a range of 100 km and must be provided range and attitude to
 lock onto the space junk. Don't allow any space junk to approach closer than
 10 km.
 
@@ -550,9 +568,7 @@ Command format:
 
     
     
-    [Time_UTC] [S=
-    at_ID] FIRE [Qx] [Qy] [Qz] [Qw] [Range_km]=
-    
+    [Time_UTC] [Sat_ID] FIRE [Qx] [Qy] [Qz] [Qw] [Range_km]
     
     
      
@@ -561,34 +577,33 @@ Command example:
 
     
     
-    2021177.014500 SAT1 FIRE -0.7993071278793108 0.256914502808931=
-    4 0.0 0.5432338847750264 47.85760531563315
+    2021177.014500 SAT1 FIRE -0.7993071278793108 0.2569145028089314 0.0 0.5432338847750264 47.85760531563315
+    
+    
+     
 
-`
-
-This command fires the laser from Sat1 on June 26, 202= 1 (day 177 of the
-year) at 01:45:00 UTC and expects the target to be approximately= 48 km away.
-The direction would be a [0,0,1] vector in the J2000 frame rotated= by the
-provided quaternion [-0.7993071278793108 0.2569145028089314 0.0
-0.5432338847750264] in the form [Qx Qy Qz Qw].
+This command fires the laser from Sat1 on June 26, 2021 (day 177 of the year)
+at 01:45:00 UTC and expects the target to be approximately 48 km away. The
+direction would be a [0,0,1] vector in the J2000 frame rotated by the provided
+quaternion [-0.7993071278793108 0.2569145028089314 0.0 0.5432338847750264] in
+the form [Qx Qy Qz Qw].
 
 One successful laser command is provided for you (note: there are many
-possible combinations of time, attitude, range, and spacecra= ft to destroy
-the same piece of space junk):
+possible combinations of time, attitude, range, and spacecraft to destroy the
+same piece of space junk):
 
     
     
-    2021177.002200 SAT1 FIRE -0.6254112512084177 -0.10281341941423=
-    379 0.0 0.773492189779751 84.9530354564239
-
-`
+    2021177.002200 SAT1 FIRE -0.6254112512084177 -0.10281341941423379 0.0 0.773492189779751 84.9530354564239
+    
+    
+     
 
 **Ticket:**
 
     
     
-    ticket{mike202103bravo2:GE8s0nQV-5AuI3AlQRECYw5t0R6DqtrN5yS9I4=
-    czUwfqTiTB6d7a625ki8wzxDnuWA}
+    ticket{mike202103bravo2:GE8s0nQV-5AuI3AlQRECYw5t0R6DqtrN5yS9I4czUwfqTiTB6d7a625ki8wzxDnuWA}
     
     
      
@@ -604,95 +619,93 @@ the same piece of space junk):
 
 **Files:**
 
-�        [http=
-s://static.2021.hackasat.com/hxch0sjllud2ph3ff2dqg80dajn4](3D"https://static.2021.hackasat.com/hxch0sjllud2ph3ff2dqg80dajn4")
+ï¿½        <https://static.2021.hackasat.com/hxch0sjllud2ph3ff2dqg80dajn4>
 
-�        [http=
-s://static.2021.hackasat.com/n47ad4ilw8r88gxpfm96bx0dyt2s](3D"https://static.2021.hackasat.com/n47ad4ilw8r88gxpfm96bx0dyt2s")
+ï¿½        <https://static.2021.hackasat.com/n47ad4ilw8r88gxpfm96bx0dyt2s>
 
 ## Write-up
 
-_By Kevin Farley, part of the SingleEventUpset team <= o:p>_
+_By Kevin Farley, part of the SingleEventUpset team_
 
-In-line with prior Hack-a-Sat problems, we ultimately = needed to do some
-quaternion calculations. The prompt had provided trajectory data= for �space
-junk� which we need to destroy, as well as satellites which do the destroying.
-The solution needed to provide firing information which could d= estroy 51
+In-line with prior Hack-a-Sat problems, we ultimately needed to do some
+quaternion calculations. The prompt had provided trajectory data for ï¿½space
+junk which we need to destroy, as well as satellites which do the destroying.
+The solution needed to provide firing information which could destroy 51
 pieces of space junk and prevent any from getting too close. Relevant
 parameters include the UTC timestamp (indexing into the trajectory data) and
 the quaternion displacement from the J2000 frame [0,0,1].
 
 ### Approach
 
-Our general approach was to first detect when space ju= nk was in range of our
+Our general approach was to first detect when space junk was in range of our
 satellites. From that point we needed to calculate the quaternions, and then
 format commands to clear out the debris. This was an iterative process; but
-rather than providing snippets, the process will be = laid out here and the
-final code will be documented in the �Code� subsection.
+rather than providing snippets, the process will be laid out here and the
+final code will be documented in the ï¿½Code subsection.
 
-During the process we trialed a few different modules = to do our calculations
-and interactions. In the end, the team used Python3 alongs= ide the skyfield
-and numpy python packages.
+During the process we trialed a few different modules to do our calculations
+and interactions. In the end, the team used Python3 alongside the skyfield and
+numpy python packages.
 
-Note that we have two code artifacts: one which genera= tes commands for the
-satellites ( _generate_commands.py_ ) _,_ and the o= ther which feeds a list
-of commands (via file) to the hack-a-sat problem ( _sen= d_commands.py_ ). The
+Note that we have two code artifacts: one which generates commands for the
+satellites ( _generate_commands.py_ ) _,_ and the other which feeds a list of
+commands (via file) to the hack-a-sat problem ( _send_commands.py_ ). The
 final subsection documents the solution output resulting in the flag.
 
 ### Process
 
-The first step was to import the provided TLE data int= o the skyfield python
+The first step was to import the provided TLE data into the skyfield python
 package. From this point, we wrote code to detect when space junk was within
 firing range. This is possible by indexing into the TLE data with a time
 iteration loop. For each time increment we check the various satellite and
 space junk positions per the skyfield API. A time increment of one minute was
-selected as it generated commands in a reasonable amount of = time without
+selected as it generated commands in a reasonable amount of time without
 allowing any of the junk within 10km of any of the satellites.
 
 After detecting some possible timestamps to fire at the junk, we took a stab
-at calculating the quaternions and drafting some comma= nds. We quickly ran
-into 2 issues.
+at calculating the quaternions and drafting some commands. We quickly ran into
+2 issues.
 
-1.&n;= bsp;     Satellites have a cool down period
+1.      Satellites have a cool down period
 
-2.&n;= bsp;     Our quaternion calculations were missing the= ir mark
+2.      Our quaternion calculations were missing their mark
 
-The first point was solved by drafting some logic to t= rack satellite
-availability. For any given time incre= ment, we created a list of available
-satellites. If a command was generated for a= given satellite, it was removed
+The first point was solved by drafting some logic to track satellite
+availability. For any given time increment, we created a list of available
+satellites. If a command was generated for a given satellite, it was removed
 temporarily from the list of available satellites. Each satellite was returned
 to its available state at the start of the next time increment.
 
-The second point was a bit more convoluted. Our origin= al approach was to use
-scipy�s spatial transform submodule. More specifically, the Rotation class and
-a= lign_vectors method. Some code was developed to heighten our degree of
-confidence, howev= er we still had issues.
+The second point was a bit more convoluted. Our original approach was to use
+scipyï¿½s spatial transform submodule. More specifically, the Rotation class
+and align_vectors method. Some code was developed to heighten our degree of
+confidence, however we still had issues.
 
-To find the solution, we had to take a step back. It s= eemed prudent to try
-to re-produce the quaternion provided in the prompt. As that command was
-verified to work, we figured that if we could programmatically reproduce it,
-then we could plug it in to the existing code for a valid solution. After
-trying a variety of inputs and modules, we ultimately ended= up using some
-math from earlier in the CTF�Deck 36�s first problem. We took the difference
-of satellite 1 and the known space junk, then normalized the vec= tor and
-plugged it into the quaternion calculation previously mentioned. This finally
-provided the quaternion we were looking for and is notated in the q= uad
-function of the solution code ( _generate_commands.py_ ).
+To find the solution, we had to take a step back. It seemed prudent to try to
+re-produce the quaternion provided in the prompt. As that command was verified
+to work, we figured that if we could programmatically reproduce it, then we
+could plug it in to the existing code for a valid solution. After trying a
+variety of inputs and modules, we ultimately ended up using some math from
+earlier in the CTFï¿½Deck 36ï¿½s first problem. We took the difference of
+satellite 1 and the known space junk, then normalized the vector and plugged
+it into the quaternion calculation previously mentioned. This finally provided
+the quaternion we were looking for and is notated in the quad function of the
+solution code ( _generate_commands.py_ ).
 
-Later analysis showed that even though the angle betwe= en our
-�scipy.spatial.transform.Ro= tation� solution and the accepted solution was
+Later analysis showed that even though the angle between our
+ï¿½scipy.spatial.transform.Rotationï¿½ solution and the accepted solution was
 exactly 0 degrees, the grading system was only accepting a quaternion which
-used the minimum angular rotation bet= ween [0,0,1] and the target angle. The
-problem was that the grading system was c= omparing the _quaternions_ rather
+used the minimum angular rotation between [0,0,1] and the target angle. The
+problem was that the grading system was comparing the _quaternions_ rather
 than the _pointing vector resulting from applying the quaternion_. The problem
-was undercons= trained because it did not specify a second alignment vector.
-Therefore, it has an = infinite number of valid quaternions that are correctly
-pointing at the space junk b= ut with different values for the �roll� of the
-satellite (aka which way is �up� while you are pointing at the space junk).
-However, it was only accepting o= ne specific quaternion solution. We
+was underconstrained because it did not specify a second alignment vector.
+Therefore, it has an infinite number of valid quaternions that are correctly
+pointing at the space junk but with different values for the ï¿½roll of the
+satellite (aka which way is ï¿½upï¿½ while you are pointing at the space
+junk). However, it was only accepting one specific quaternion solution. We
 eventually figured out the issue with the scoring and were able to work around
-it by manually constructing the quater= nions after reverse-engineering the
-algorithm used to compute the example quatern= ion.
+it by manually constructing the quaternions after reverse-engineering the
+algorithm used to compute the example quaternion.
 
 ### Code
 
@@ -703,165 +716,214 @@ algorithm used to compute the example quatern= ion.
     from math import dist
     
     
-    from <=
-    span
-    class=3DGramE>scipy.spatial.transform import Rotation
+    from skyfield.api import load
     
     
-    spacejunk.tle'
+    from astropy import coordinates as coord
     
     
-    sats.tle'
+    from astropy import units as u
     
     
-    sats =3D load.tle_file(SATS_FILE)=
+    from astropy.time import Time
     
     
-    
-    spacejunk =3D load.tle_file(SPACEJUNK_FILE)=
-    
+    from astropy.utils import iers
     
     
-    ts =3D load.timescale()
+    from scipy.spatial.transform import Rotation
     
     
-    time_iter =3D 0
+    from skyfield.units import Distance
     
     
-    detected_junk =3D {}
+    import numpy as np
     
     
-    available_sats =3D [sat.name for sat in <=
-    span
-    class=3DSpellE>sats]
+    from scipy.spatial.transform import *
     
     
      
     
     
-    �� �[Sat_ID] FIRE [Qx]������������� [Qy]��������������� <=
-    /span>[Qz] [Qw]�������������� [Range_km]
+    SPACEJUNK_FILE = 'spacejunk.tle'
     
     
-    ��� '''usage: fmt_cmd(t, sat, qx, qy, qz, qw, distance)'''
+    SATS_FILE = 'sats.tle'
     
     
-    ��� return f'{utc.utc_strftime("%Y%j.%H%M%S")} {sat.name.upper()} FIRE {qx} {qy} {qz} {qw} {range_km}'
+    TO_KILL = 51
     
     
-    ��� v1 =3D [0,0,1]
+     
     
     
-    ��� v2 =3D vec
+    sats = load.tle_file(SATS_FILE)
     
     
-    ��� x, y, z =3D np.cross(v1, v2)
+    spacejunk = load.tle_file(SPACEJUNK_FILE)
     
     
-    ��� w =3D 1 + np.dot(v1, v2)
+     
     
     
-    ��� v3 =3D [x, y, z, w]
+    ts = load.timescale()
     
     
-    ��� norm_len =3D np.sum([_i**2 for _i in v3])
+    time_iter = 0
     
     
-    ��� norm_sf =3D 1 / np.sqrt(norm_len)
+    detected_junk = {}
     
     
-    ��� return [norm_sf * _i for _i in v3]
+    available_sats = [sat.name for sat in sats]
     
     
-    ��� # Kill only as many as we nee=
-    d to
+     
     
     
-    ��� while len(detected_junk.keys()) < TO_KILL:
+     
     
     
-    ������� current_time =3D ts.utc(2021, 6, 26, 0, time_iter=
-    )
+    # [Time_UTC]ï¿½  ï¿½[Sat_ID] FIRE [Qx]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  [Qy]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  [Qz] [Qw]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  [Range_km]
     
     
-    ������� for junk in spacejunk:
+    # 2021177.002200 SAT1 FIRE -0.6254112512084177 -0.10281341941423379 0.0 0.773492189779751 84.9530354564239
     
     
-    ����������� current_junk_pos =3D junk.at(cur=
-    rent_time)
+    def fmt_cmd(utc, sat, qx, qy, qz, qw, range_km):
     
     
-    ����������� for sat in sats:
+    ï¿½ï¿½  '''usage: fmt_cmd(t, sat, qx, qy, qz, qw, distance)'''
     
     
-     ���������������if sat.name in available_sats:
+    ï¿½ï¿½  return f'{utc.utc_strftime("%Y%j.%H%M%S")} {sat.name.upper()} FIRE {qx} {qy} {qz} {qw} {range_km}'
     
     
-    ������������������� current_sat_pos =3D sat.at(curre=
-    nt_time)
+     
     
     
-    ������������������� distance =3D =
-    (current_sat_pos - current_junk_p=
-    os).distance().km
+     
     
     
-    ������������������� if distance &=
-    lt;=3D 10 and junk.name not in detected_junk.keys():=
+    def quad(vec):
     
     
+    ï¿½ï¿½  v1 = [0,0,1]
     
-    ����������������������� print(f'{=
-    current_time.utc_datetime<=
-    span
-    class=3DGramE>()}� {junk.nam=
-    e} is TOO CLOSE TO {sat.name} ({distance} km)')
     
+    ï¿½ï¿½  v2 = vec
     
-    ������������������� elif distance <=3D 90:
     
+    ï¿½ï¿½  x, y, z = np.cross(v1, v2)
     
-    ����������������������� #print(f'=
-    {current_time.utc_datetime()}� {=
-    junk.name} is in range of {sat.name} ({distance} km)')
     
+    ï¿½ï¿½  w = 1 + np.dot(v1, v2)
     
-    ����������������������� if not detected_junk.get(junk.name) and sat.name in available_sats:
     
+    ï¿½ï¿½  v3 = [x, y, z, w]
     
-    ��������������������������� detected_junk[junk.name] =3D (sat.name, current_time.utc_datetime())
     
+    ï¿½ï¿½  norm_len = np.sum([_i**2 for _i in v3])
     
-    ��������������������������� available_sats.remove(sat.=
-    name)
     
+    ï¿½ï¿½  norm_sf = 1 / np.sqrt(norm_len)
     
-    ��������������������������� junk_vec =3D np.array((current_junk_pos - current_sat_p=
-    os).position.km)
     
+    ï¿½ï¿½  return [norm_sf * _i for _i in v3]
     
-    ��������������������������� junk_vec =3D junk_vec / <=
-    span
-    class=3DSpellE>np.linalg.norm(junk_vec)
     
+     
     
-    ��������������������������� fin =
-    =3D quad(junk_vec)
     
+     
     
-    ��������������������������� f.write(fmt_cmd(current_time, sat, fin[0], fin[1], fin[2], fin[3], di=
-    stance) + '\n')
     
+    with open('cmds.txt', 'w') as f:
     
-    ����������������������� # print(<=
-    span
-    class=3DSpellE>len(detected_junk.keys()))
     
+    ï¿½ï¿½  # Kill only as many as we need to
     
-    ������� available_sats =3D [sat.name for sat in sats]
     
+    ï¿½ï¿½  while len(detected_junk.keys()) < TO_KILL:
     
-    ������� time_iter +=3D 1
+    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  current_time = ts.utc(2021, 6, 26, 0, time_iter)
+    
+    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  for junk in spacejunk:
+    
+    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  current_junk_pos = junk.at(current_time)
+    
+    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  for sat in sats:
+    
+    
+     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½if sat.name in available_sats:
+    
+    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  current_sat_pos = sat.at(current_time)
+    
+    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  distance = (current_sat_pos - current_junk_pos).distance().km
+    
+    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  if distance <= 10 and junk.name not in detected_junk.keys():
+    
+    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  print(f'{current_time.utc_datetime()}  {junk.name} is TOO CLOSE TO {sat.name} ({distance} km)')
+    
+    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  elif distance <= 90:
+    
+    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  #print(f'{current_time.utc_datetime()}  {junk.name} is in range of {sat.name} ({distance} km)')
+    
+    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  if not detected_junk.get(junk.name) and sat.name in available_sats:
+    
+    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  detected_junk[junk.name] = (sat.name, current_time.utc_datetime())
+    
+    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  available_sats.remove(sat.name)
+    
+    
+     
+    
+    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  junk_vec = np.array((current_junk_pos - current_sat_pos).position.km)
+    
+    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  junk_vec = junk_vec / np.linalg.norm(junk_vec)
+    
+    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  fin = quad(junk_vec)
+    
+    
+     
+    
+    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  f.write(fmt_cmd(current_time, sat, fin[0], fin[1], fin[2], fin[3], distance) + '\n')
+    
+    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  # print(len(detected_junk.keys()))
+    
+    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  available_sats = [sat.name for sat in sats]
+    
+    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  time_iter += 1
+    
+    
+    print(time_iter)
+    
+    
+    print(len(detected_junk.keys()))
+    
+    
+    print(detected_junk)
     
     
      
@@ -873,49 +935,58 @@ algorithm used to compute the example quatern= ion.
     from pwn import *
     
     
-    -coal.satellitesabove.me'
+     
     
     
-    conn.recvuntil=
-    (b'Tic=
-    ket please:')
+    TICKET = b'ticket{mike202103bravo2:GE8s0nQV-5AuI3AlQRECYw5t0R6DqtrN5yS9I4czUwfqTiTB6d7a625ki8wzxDnuWA}'
     
     
-    conn.send(TICKET + b'\n')=
+    HOST = b'hard-coal.satellitesabove.me'
     
     
-    
-    conn.recvuntil=
-    (b'Pro=
-    vide command sequences:')
+    PORT = 5007
     
     
-    rb') as =
-    file:
+     
     
     
-    ��� for i in range (0,52):
+    conn = remote(HOST, PORT)
     
     
-    ������� print(f'Sending {i}')
+    conn.recvuntil(b'Ticket please:')
     
     
-    ������� print(conn.recvuntil(b':'))=
+    conn.send(TICKET + b'\n')
     
     
-    
-    ������� ln =3D file.readline()=
-    
+    conn.recvuntil(b'Provide command sequences:')
     
     
-    ������� print(ln)
+    with open('cmds.txt', 'rb') as file:
     
     
-    ������� conn.send(ln)
+    ï¿½ï¿½  for i in range (0,52):
     
     
-    conn.interactive()=
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  print(f'Sending {i}')
     
+    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  print(conn.recvuntil(b':'))
+    
+    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  ln = file.readline()
+    
+    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  print(ln)
+    
+    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  conn.send(ln)
+    
+    
+     
+    
+    
+    conn.interactive()
     
     
      
@@ -923,60 +994,352 @@ algorithm used to compute the example quatern= ion.
 ### Solution
 
 After running _generate_commands.py_ against the provided trajectory data, we
-generated a _cmds.txt_ which got fed to <= i>send_commands.py_. This led to
-the following result:
+generated a _cmds.txt_ which got fed to _send_commands.py_. This led to the
+following result:
 
     
     
     All commands entered.
     
     
-      
+     
     
     
+    Starting command sequence.
     
     
-    # Hack-a-Sat2 Qualifier 2021:� groundead
+    2021-06-26 00:22:00 UTC: Executing Command ['2021177.002200', 'SAT1', 'FIRE', -0.6254112512084178, -0.10281341941423386, 0.0, 0.7734921897797508, 84.9530354564241]
     
     
+    SpaceJunk1 was destroyed by Sat1!
     
     
-      
-    
-    **Category** :� Presents from Mar=
-    co
+    2021-06-26 00:23:00 UTC: Executing Command ['2021177.002300', 'SAT1', 'FIRE', -0.5884325821129802, -0.07578329796390694, 0.0, 0.804986948998283, 73.79197663512058]
     
     
+    SpaceJunk7 was destroyed by Sat1!
     
     
-    **Points: � 80
+    2021-06-26 00:24:00 UTC: Executing Command ['2021177.002400', 'SAT1', 'FIRE', -0.4869261506899539, -0.32189226288414363, 0.0, 0.8119656980868032, 65.72272043204177]
     
     
+    SpaceJunk8 was destroyed by Sat1!
     
     
-    **Solves: � 52
+    2021-06-26 00:25:00 UTC: Executing Command ['2021177.002500', 'SAT1', 'FIRE', -0.24912653228890722, -0.4139360802232342, 0.0, 0.8755529066819026, 84.68927310689409]
     
     
+    SpaceJunk9 was destroyed by Sat1!
     
     
-    **Description:**
+    2021-06-26 00:26:00 UTC: Executing Command ['2021177.002600', 'SAT1', 'FIRE', -0.36174277753666884, -0.4195492482845058, 0.0, 0.8325386424448791, 39.37750883546023]
     
     
+    SpaceJunk10 was destroyed by Sat1!
     
     
-    you're groundead
+    2021-06-26 00:27:00 UTC: Executing Command ['2021177.002700', 'SAT1', 'FIRE', -0.4471875965118009, -0.33931543232555356, 0.0, 0.8275797791824796, 26.948742701290044]
     
     
+    SpaceJunk11 was destroyed by Sat1!
     
     
-    **Ticket:**
+    2021-06-26 00:28:00 UTC: Executing Command ['2021177.002800', 'SAT1', 'FIRE', 0.08400059410017914, -0.4655396945472299, 0.0, 0.8810316072603123, 86.39474712140971]
     
     
+    SpaceJunk2 was destroyed by Sat1!
     
     
+    2021-06-26 00:29:00 UTC: Executing Command ['2021177.002900', 'SAT1', 'FIRE', 0.3234201456560628, -0.5144999650954043, 0.0, 0.7941594268789102, 83.0942159316515]
     
-    ticket{kilo440990lima2:GMO6e_EYV3j2=
-    3LQr2poHR_irrW4KpK-BjZ1rdGhinKKGYtUYRi46VXtZOOd-NGGGtQ}
+    
+    SpaceJunk13 was destroyed by Sat1!
+    
+    
+    2021-06-26 00:30:00 UTC: Executing Command ['2021177.003000', 'SAT1', 'FIRE', 0.26918524327744797, -0.43652778189286834, 0.0, 0.8584770238261205, 77.39007535348169]
+    
+    
+    SpaceJunk15 was destroyed by Sat1!
+    
+    
+    2021-06-26 00:31:00 UTC: Executing Command ['2021177.003100', 'SAT1', 'FIRE', -0.0615878054213333, 0.6893017431564414, 0.0, 0.7218518193541356, 57.834407224767965]
+    
+    
+    SpaceJunk32 was destroyed by Sat1!
+    
+    
+    2021-06-26 00:32:00 UTC: Executing Command ['2021177.003200', 'SAT1', 'FIRE', 0.0054830829815700555, 0.6710459978192034, -0.0, 0.7413954441536897, 48.33874973453497]
+    
+    
+    SpaceJunk33 was destroyed by Sat1!
+    
+    
+    2021-06-26 00:33:00 UTC: Executing Command ['2021177.003300', 'SAT1', 'FIRE', 0.6507804691428596, -0.08582892062107254, 0.0, 0.7543992161761711, 60.32350911822143]
+    
+    
+    SpaceJunk35 was destroyed by Sat1!
+    
+    
+    2021-06-26 00:34:00 UTC: Executing Command ['2021177.003400', 'SAT1', 'FIRE', 0.6861510510107066, 0.1683076970645573, -0.0, 0.7077211698866496, 82.21329809031677]
+    
+    
+    SpaceJunk36 was destroyed by Sat1!
+    
+    
+    2021-06-26 00:35:00 UTC: Executing Command ['2021177.003500', 'SAT1', 'FIRE', 0.46861707592146146, 0.35520845871669043, -0.0, 0.808841756470901, 48.617026659592675]
+    
+    
+    SpaceJunk38 was destroyed by Sat1!
+    
+    
+    2021-06-26 00:36:00 UTC: Executing Command ['2021177.003600', 'SAT1', 'FIRE', 0.6056665571945372, 0.27240901772752646, -0.0, 0.7476371770831362, 70.16001749447351]
+    
+    
+    SpaceJunk43 was destroyed by Sat1!
+    
+    
+    2021-06-26 00:37:00 UTC: Executing Command ['2021177.003700', 'SAT1', 'FIRE', 0.45001039371089757, 0.5227096515909513, -0.0, 0.7240616449487084, 67.79131969306351]
+    
+    
+    SpaceJunk51 was destroyed by Sat1!
+    
+    
+    2021-06-26 01:08:00 UTC: Executing Command ['2021177.010800', 'SAT1', 'FIRE', 0.7136891814681181, 0.44162647125236676, -0.0, 0.5437037908131136, 88.23435230553797]
+    
+    
+    SpaceJunk53 was destroyed by Sat1!
+    
+    
+    2021-06-26 01:11:00 UTC: Executing Command ['2021177.011100', 'SAT1', 'FIRE', 0.5969146906502469, 0.5765527701891414, -0.0, 0.5579245067866682, 89.9415764480569]
+    
+    
+    SpaceJunk18 was destroyed by Sat1!
+    
+    
+    2021-06-26 01:12:00 UTC: Executing Command ['2021177.011200', 'SAT1', 'FIRE', 0.6561700144133926, 0.5052066818971347, -0.0, 0.5605418099938806, 89.48494363698845]
+    
+    
+    SpaceJunk12 was destroyed by Sat1!
+    
+    
+    2021-06-26 01:13:00 UTC: Executing Command ['2021177.011300', 'SAT1', 'FIRE', 0.6239380253020991, 0.5942102467852098, -0.0, 0.5075583938795392, 86.42896794104807]
+    
+    
+    SpaceJunk16 was destroyed by Sat1!
+    
+    
+    2021-06-26 01:14:00 UTC: Executing Command ['2021177.011400', 'SAT1', 'FIRE', 0.5494423649369218, 0.6139103096386115, -0.0, 0.5667691058375948, 82.0866721890363]
+    
+    
+    SpaceJunk44 was destroyed by Sat1!
+    
+    
+    2021-06-26 01:15:00 UTC: Executing Command ['2021177.011500', 'SAT1', 'FIRE', 0.5484123779774783, 0.5979017342735572, -0.0, 0.5846001880206335, 79.40277617021908]
+    
+    
+    SpaceJunk58 was destroyed by Sat1!
+    
+    
+    2021-06-26 01:26:00 UTC: Executing Command ['2021177.012600', 'SAT1', 'FIRE', -0.2747211413577219, 0.7447792832306693, 0.0, 0.608138235733884, 86.4279343626737]
+    
+    
+    SpaceJunk48 was destroyed by Sat1!
+    
+    
+    2021-06-26 01:28:00 UTC: Executing Command ['2021177.012800', 'SAT1', 'FIRE', 0.03299168298605353, 0.8082240383870652, -0.0, 0.5879502127111202, 88.52567588314837]
+    
+    
+    SpaceJunk17 was destroyed by Sat1!
+    
+    
+    2021-06-26 01:29:00 UTC: Executing Command ['2021177.012900', 'SAT1', 'FIRE', 0.03647720497886061, 0.7933128367321448, -0.0, 0.6077204592515606, 86.72051245174403]
+    
+    
+    SpaceJunk47 was destroyed by Sat1!
+    
+    
+    2021-06-26 01:57:00 UTC: Executing Command ['2021177.015700', 'SAT2', 'FIRE', -0.6752576082143226, -0.17550190726309378, 0.0, 0.7163981037772844, 83.2576964609835]
+    
+    
+    SpaceJunk30 was destroyed by Sat2!
+    
+    
+    2021-06-26 01:58:00 UTC: Executing Command ['2021177.015800', 'SAT2', 'FIRE', -0.5603883895130868, -0.19400571045372497, 0.0, 0.8051873305077982, 64.10989542741625]
+    
+    
+    SpaceJunk42 was destroyed by Sat2!
+    
+    
+    2021-06-26 01:59:00 UTC: Executing Command ['2021177.015900', 'SAT2', 'FIRE', -0.22535974574361753, -0.46694592509109367, 0.0, 0.8550874154372727, 84.92552252225155]
+    
+    
+    SpaceJunk40 was destroyed by Sat2!
+    
+    
+    2021-06-26 02:00:00 UTC: Executing Command ['2021177.020000', 'SAT2', 'FIRE', -0.294733399272882, -0.4416640824873598, 0.0, 0.8473871969729366, 82.94699268947561]
+    
+    
+    SpaceJunk5 was destroyed by Sat2!
+    
+    
+    2021-06-26 02:01:00 UTC: Executing Command ['2021177.020100', 'SAT2', 'FIRE', -0.03708570518086816, -0.5712958855221474, 0.0, 0.8199058858531894, 82.4930428013585]
+    
+    
+    SpaceJunk24 was destroyed by Sat2!
+    
+    
+    2021-06-26 02:02:00 UTC: Executing Command ['2021177.020200', 'SAT2', 'FIRE', 0.1380456591521742, -0.5536150654226595, 0.0, 0.8212513350529824, 68.8253131339525]
+    
+    
+    SpaceJunk41 was destroyed by Sat2!
+    
+    
+    2021-06-26 02:03:00 UTC: Executing Command ['2021177.020300', 'SAT2', 'FIRE', -0.4895000733942992, 0.5269028455968172, 0.0, 0.6948115352014185, 44.70545840147413]
+    
+    
+    SpaceJunk52 was destroyed by Sat2!
+    
+    
+    2021-06-26 02:04:00 UTC: Executing Command ['2021177.020400', 'SAT2', 'FIRE', -0.2998776123954696, 0.43106825363378787, 0.0, 0.8510308915034219, 30.251513871721684]
+    
+    
+    SpaceJunk55 was destroyed by Sat2!
+    
+    
+    2021-06-26 02:05:00 UTC: Executing Command ['2021177.020500', 'SAT2', 'FIRE', 0.12552603344726526, -0.4919954757182805, 0.0, 0.8615008222861652, 89.18592559600607]
+    
+    
+    SpaceJunk3 was destroyed by Sat2!
+    
+    
+    2021-06-26 02:06:00 UTC: Executing Command ['2021177.020600', 'SAT2', 'FIRE', -0.07450580583884571, -0.43345182375656455, 0.0, 0.8980915328508626, 51.841578965802285]
+    
+    
+    SpaceJunk56 was destroyed by Sat2!
+    
+    
+    2021-06-26 02:07:00 UTC: Executing Command ['2021177.020700', 'SAT2', 'FIRE', 0.2889142256689078, -0.5100303723101726, 0.0, 0.8101836764137391, 89.18550611323144]
+    
+    
+    SpaceJunk29 was destroyed by Sat2!
+    
+    
+    2021-06-26 02:08:00 UTC: Executing Command ['2021177.020800', 'SAT2', 'FIRE', 0.5648076092217571, 0.3065755491496923, -0.0, 0.7661617304647679, 55.935388958630064]
+    
+    
+    SpaceJunk57 was destroyed by Sat2!
+    
+    
+    2021-06-26 02:22:00 UTC: Executing Command ['2021177.022200', 'SAT2', 'FIRE', 0.6914029906996595, -0.03234242103203408, 0.0, 0.721745018862862, 89.55415995269856]
+    
+    
+    SpaceJunk26 was destroyed by Sat2!
+    
+    
+    2021-06-26 02:33:00 UTC: Executing Command ['2021177.023300', 'SAT2', 'FIRE', 0.7154433611439959, 0.2543736238897263, -0.0, 0.6507187230011057, 89.52187283080339]
+    
+    
+    SpaceJunk6 was destroyed by Sat2!
+    
+    
+    2021-06-26 02:36:00 UTC: Executing Command ['2021177.023600', 'SAT2', 'FIRE', 0.6907734625128628, 0.30920863258848374, -0.0, 0.6536222494841732, 89.9864241086128]
+    
+    
+    SpaceJunk54 was destroyed by Sat2!
+    
+    
+    2021-06-26 02:56:00 UTC: Executing Command ['2021177.025600', 'SAT2', 'FIRE', 0.361912641706184, 0.6977292182479822, -0.0, 0.6182177430131807, 89.6208261810655]
+    
+    
+    SpaceJunk4 was destroyed by Sat2!
+    
+    
+    2021-06-26 04:20:00 UTC: Executing Command ['2021177.042000', 'SAT3', 'FIRE', 0.5279721184051023, 0.56017643295972, -0.0, 0.6383163840474042, 87.54089936717507]
+    
+    
+    SpaceJunk49 was destroyed by Sat3!
+    
+    
+    2021-06-26 04:25:00 UTC: Executing Command ['2021177.042500', 'SAT3', 'FIRE', 0.5234170404002645, 0.6205048399572307, -0.0, 0.5839591984105391, 88.89012954663097]
+    
+    
+    SpaceJunk14 was destroyed by Sat3!
+    
+    
+    2021-06-26 04:27:00 UTC: Executing Command ['2021177.042700', 'SAT3', 'FIRE', 0.4257893828348767, 0.6470118221787716, -0.0, 0.6325180656914082, 89.06939088459058]
+    
+    
+    SpaceJunk21 was destroyed by Sat3!
+    
+    
+    2021-06-26 05:16:00 UTC: Executing Command ['2021177.051600', 'SAT4', 'FIRE', 0.19834367382240853, -0.5213088163002396, 0.0, 0.8299981356016848, 89.35467700630174]
+    
+    
+    SpaceJunk22 was destroyed by Sat4!
+    
+    
+    2021-06-26 10:32:00 UTC: Executing Command ['2021177.103200', 'SAT6', 'FIRE', -0.18087718037479708, -0.5810222496931879, 0.0, 0.7935342405851998, 89.5820723806052]
+    
+    
+    SpaceJunk46 was destroyed by Sat6!
+    
+    
+    2021-06-26 11:34:00 UTC: Executing Command ['2021177.113400', 'SAT8', 'FIRE', 0.29550717110658353, -0.4862361124254691, 0.0, 0.8223441826862709, 87.68415391575954]
+    
+    
+    SpaceJunk20 was destroyed by Sat8!
+    
+    
+    2021-06-26 11:35:00 UTC: Executing Command ['2021177.113500', 'SAT8', 'FIRE', 0.36021705289485373, -0.5149342151778231, 0.0, 0.7778730158855914, 89.96240090115249]
+    
+    
+    SpaceJunk59 was destroyed by Sat8!
+    
+    
+    2021-06-26 13:08:00 UTC: Executing Command ['2021177.130800', 'SAT9', 'FIRE', 0.28829484039566855, -0.5319640164778292, 0.0, 0.7961786044437591, 89.82297090834531]
+    
+    
+    SpaceJunk19 was destroyed by Sat9!
+    
+    
+    2021-06-26 15:15:00 UTC: Executing Command ['2021177.151500', 'SAT9', 'FIRE', -0.30858758605204245, -0.542948224126228, 0.0, 0.78101275767605, 89.52624619845814]
+    
+    
+    SpaceJunk39 was destroyed by Sat9!
+    
+    
+    2021-06-26 21:22:00 UTC: Executing Command ['2021177.212200', 'SAT13', 'FIRE', -0.6037279556157091, -0.312185990501354, 0.0, 0.7335205947638859, 88.4781101257495]
+    
+    
+    SpaceJunk25 was destroyed by Sat13!
+    
+    
+    51 pieces of space junk have been vaporized! Nice work!
+    
+    
+    flag{mike202103bravo2:GKWRH1pD6AWlggKBLF6_l01uNdD-OKe8C6-U0VhZvdrBILfyorAy7gypmWIrExv4BNexh1ToFzP1R-9r-28dn5c}
+
+`  
+`
+
+# Hack-a-Sat2 Qualifier 2021: groundead
+
+  
+**Category** : Presents from Marco
+
+**Points: **80
+
+**Solves: **52
+
+**Description:**
+
+you're groundead
+
+**Ticket:**
+
+    
+    
+    ticket{kilo440990lima2:GMO6e_EYV3j23LQr2poHR_irrW4KpK-BjZ1rdGhinKKGYtUYRi46VXtZOOd-NGGGtQ}
     
     
      
@@ -985,121 +1348,132 @@ the following result:
 
     
     
-    unfair-cookie.satellitesabove.me:5001=
-    
+    unfair-cookie.satellitesabove.me:5001
     
     
      
 
 **Files:**
 
-�        [http=
-s://static.2021.hackasat.com/mai9wvewp0avwos5ppxbg6lqdb6i](3D"https://static.2021.hackasat.com/mai9wvewp0avwos5ppxbg6lqdb6i")
+ï¿½        <https://static.2021.hackasat.com/mai9wvewp0avwos5ppxbg6lqdb6i>
 
 ## Write-up
 
-_By Jonathan, part of the SingleEventUpset team = _
+_By Jonathan, part of the SingleEventUpset team_
 
-We used IDA Pro to disassemble and decompile the chall= enge binary.� We
-identified that main() starts a producer thread (= getSatellitePacketBytes)
-and a consumer thread (processSatellitePacketBytes):
+We used IDA Pro to disassemble and decompile the challenge binary. We
+identified that main() starts a producer thread (getSatellitePacketBytes) and
+a consumer thread (processSatellitePacketBytes):
 
-![](3D"SingleEventUpsetQualsTechnicalPaper_files/image010.jpg")
+![](./image010.jpg)
 
-getSatelliteP= acketBytes() processes incoming bytes and, among other things,
-enforces that the incoming command ID always be set to 7.� Otherwise, it
+getSatellitePacketBytes() processes incoming bytes and, among other things,
+enforces that the incoming command ID always be set to 7.ï¿½ Otherwise, it
 rejects the input and prints "That sequence of hex characters did not work.
 Try again." to stdout.
 
-In processSat= ellitePacketBytes() we see that the max command ID is 8.�
-Interestingly, compared to IDA Pro, Ghidra provided a more useful de=
-compilation of the command handler logic:
+In processSatellitePacketBytes() we see that the max command ID is 8.
+Interestingly, compared to IDA Pro, Ghidra provided a more useful
+decompilation of the command handler logic:
 
-![](3D"SingleEventUpsetQualsTechnicalPaper_files/image012.jpg")
+![](./image012.jpg)
 
 We can see that the command nominally executed (7) corresponds to the
-�Handling Test Telemetry� command, which matches the output that we regular=
-ly see when fuzzing stdin.
+ï¿½Handling Test Telemetry command, which matches the output that we regularly
+see when fuzzing stdin.
 
 To accelerate local testing/debugging, we patched the challenge binary to
 remove sleeps/delays.
 
-The goal must be to find a way to execute command ID <= span
-style=3D'background:aqua;mso-highlight:aqua'>8 to coerce the flag to= be
-dumped.
+The goal must be to find a way to execute command ID 8 to coerce the flag to
+be dumped.
 
 Immediately, we assume that we must abuse the queuing mechanism to inject a
 single command, causing the parser to think that there are two commands
-queued.� We notice= d that the magic hex value "1acffc1d" was being used in
-getSatellitePack= etBytes() as a delimiter between successive commands:
+queued. We noticed that the magic hex value "1acffc1d" was being used in
+getSatellitePacketBytes() as a delimiter between successive commands:
 
-![](3D"SingleEventUpsetQualsTechnicalPaper_files/image014.jpg")
+![](./image014.jpg)
 
 ...
 
-![](3D"SingleEventUpsetQualsTechnicalPaper_files/image016.jpg")
+![](./image016.jpg)
 
-This magic value is significant for its use in CCSDS a= nd ASM (see also
+This magic value is significant for its use in CCSDS and ASM (see also
 credence clearwater space data systems).
 
-The same magic value was being used in processSatellitePacketBytes= ():
+The same magic value was being used in processSatellitePacketBytes():
 
-![](3D"SingleEventUpsetQualsTechnicalPaper_files/image018.jpg")
+![](./image018.jpg)
 
-Some cursory reverse engineering reveals that the magi= c hex value "1acffc1d"
+Some cursory reverse engineering reveals that the magic hex value "1acffc1d"
 seems to be inserted between incoming commands by getSatellitePacketBytes()
-and used by processSatellitePacketBytes() to de= limit successive commands.
+and used by processSatellitePacketBytes() to delimit successive commands.
 
 Our attempts then center around abusing the queuing mechanism to inject a
-single command, causing the consumer to think that th= ere are two commands
-queued.� This requ= ires the use of the magic hex value "1acffc1d" as the
-delimiter between successive commands.� The first command is built to pass all
+single command, causing the consumer to think that there are two commands
+queued. This requires the use of the magic hex value "1acffc1d" as the
+delimiter between successive commands. The first command is built to pass all
 necessary checks (command 7), then the delimiter "1acffc1d", then the command
 that we want to execute (command 8).
 
 This results in the following sequence:
 
-`0f ff 56 01 071acffc1d<= /span>0f 01 01 01 08<= /o:p>`
+`0f ff 56 01 071acffc1d0f 01 01 01 08`
 
 Note, while the parsed bytes expect to be separated by spaces, the delimiter
 itself does not have such limitations.
 
-We used pwntools to script= the solution.� Here�s the solution scri= pt:
+We used pwntools to script the solution. Hereï¿½s the solution script:
 
     
     
-    #!/usr/bin/python3<=
-    /span>
+    #!/usr/bin/python3
     
     
-    2:GMO6e_EYV3j23LQr2poHR_irrW4KpK-BjZ1rdGhinKKGYtUYRi46=
-    VXtZOOd-NGGGtQ}'
+     
     
     
-    -cookie.satellitesabove.me'=
+    from pwn import *
     
     
-    
-    conn.recvuntil=
-    (b'Tic=
-    ket please:')
+     
     
     
-    conn.send(TICKET + b'\n')=
+    TICKET = b'ticket{kilo440990lima2:GMO6e_EYV3j23LQr2poHR_irrW4KpK-BjZ1rdGhinKKGYtUYRi46VXtZOOd-NGGGtQ}'
     
     
-    
-    conn.recvuntil=
-    (b'>')=
+    HOST = b'unfair-cookie.satellitesabove.me'
     
     
-    
-    conn.send(b'0f ff 56 01 071acffc1d0f=
-     01 01 01 08\n')
+    PORT = 5001
     
     
-    conn.interactive()=
+     
     
+    
+    conn = remote(HOST, PORT)
+    
+    
+    conn.recvuntil(b'Ticket please:')
+    
+    
+    conn.send(TICKET + b'\n')
+    
+    
+     
+    
+    
+    conn.recvuntil(b'>')
+    
+    
+    conn.send(b'0f ff 56 01 071acffc1d0f 01 01 01 08\n')
+    
+    
+     
+    
+    
+    conn.interactive()
     
     
      
@@ -1111,14 +1485,14 @@ After running this script, there is a short delay before the flag is dumped.
 
 ` `
 
-# Hack-a-Sat2 Qualifier 2021:� Fiddlin' John Carson
+# Hack-a-Sat2 Qualifier 2021: Fiddlin' John Carson
 
   
-**Category** :� Guardians of the�=
+**Category** : Guardians of theï¿½
 
-**Points: � 22
+**Points: **22
 
-**Solves: � 232
+**Solves: **232
 
 **Description:**
 
@@ -1128,8 +1502,7 @@ Where do you come from?
 
     
     
-    ticket{whiskey465080romeo2:GCw2dSO4=
-    sBTqMsnCePG9DksVFzZTwjAt2f_6WzKFqfHOakXfx1xpazWSxHu3H8Iusg}
+    ticket{whiskey465080romeo2:GCw2dSO4sBTqMsnCePG9DksVFzZTwjAt2f_6WzKFqfHOakXfx1xpazWSxHu3H8Iusg}
     
     
      
@@ -1138,8 +1511,7 @@ Where do you come from?
 
     
     
-    derived-lamp.satellitesabove.me:5013<=
-    /pre>
+    derived-lamp.satellitesabove.me:5013
     
     
      
@@ -1148,146 +1520,188 @@ Where do you come from?
 
 _By Irsyad, part of the SingleEventUpset team_
 
-Upon connecting to the challenge server, we are prompt= ed with the scenario:
+Upon connecting to the challenge server, we are prompted with the scenario:
 
     
     
-    Your spacecraft reports that its Cartesian ICRF position (km) =
-    and velocity (km/s) are:
+    Your spacecraft reports that its Cartesian ICRF position (km) and velocity (km/s) are:
     
     
-    �� [8449.40130=
-    5, 9125.794363, -17.461357]
+    Pos (km):ï¿½  [8449.401305, 9125.794363, -17.461357]
     
     
-    ������ 2021-06-26-19:20:00.0=
-    00-UTC
+    Vel (km/s): [-1.419072, 6.780149, 0.002865]
+    
+    
+    Time:ï¿½ï¿½ï¿½ï¿½ï¿½  2021-06-26-19:20:00.000-UTC
+    
+    
+     
+    
+    
+    What is its orbit (expressed as Keplerian elements a, e, i, Ω, ω, and υ)?
+    
+    
+    Semimajor axis, a (km):
+    
+    
+    Eccentricity, e:
+    
+    
+    Inclination, i (deg):
+    
+    
+    Right ascension of the ascending node, Ω (deg):
+    
+    
+    Argument of perigee, ω (deg):
+    
+    
+    True anomaly, υ (deg):
     
     
      
 
-``#!/`usr/bin/python3<= /span>`
+`Using the python libraries ï¿½orbitalpy and ï¿½astropyï¿½, we can convert
+this state vector into Keplerian elements.`
 
     
     
-    isot', scale=3D'utc')
+    #!/usr/bin/python3
     
     
-    cur_orbit =3D orbital.elements.KeplerianElements.from_state_vector(r, v=
-    , orbital.bodies.earth, ref_epoch<=
-    /span>=3Dt)
+     
     
     
-    print(�True anomaly: {}�.format(cur_orbit.f * (180/math.pi)))
+    import orbital
     
     
-    <=
-    span
-    style=3D'font-size:8.0pt;font-family:Consolas;color:#24292E;border:none win=
-    dowtext 1.0pt;
-    mso-border-alt:none windowtext 0in;padding:0in'> 
-
-``KeplerianElements`:`<= /pre>
-
+    import astropy
     
     
-    ��� Semimajor axis (a)�� ������������������������=3D� 24732.886 km
+    r = orbital.utilities.Position(8449.401305 * 1000, 9125.794363 * 1000, -17.461357 * 1000)
     
     
-    ��� Eccentricity (e)�� ��������������������������=3D����� 0.706807
+    v = orbital.utilities.Velocity(-1.419072 * 1000, 6.780149 * 1000, 0.002865 * 1000)
     
     
-    ��� Inclination (i)������������������=
-    ����������� =3D����� 0.1 deg=
+    t = astropy.time.Time("2021-6-26T19:20:00", format='isot', scale='utc')
     
     
-    
-    ��� Right ascension of the ascend=
-    ing node (raan) =3D���� 90.2 deg
+    cur_orbit = orbital.elements.KeplerianElements.from_state_vector(r, v, orbital.bodies.earth, ref_epoch=t)
     
     
-    ��� Argument of perigee (arg_pe=
-    )�� ��������������=3D��� 226.6 deg
+    print(cur_orbit)
     
     
-    ��� Mean anomaly at reference epo=
-    ch (M0)�������� =3D���� 16.5 deg
-    
-    
-    ��� Period (T)�� ��������������������������������=3D 10:45:09=
-    .999830
-    
-    
-    ��� Reference epoch (ref_epoch)�� ���������������=3D 2021-06-26T19:20:00.000
-    
-    
-    ������� Mean anomaly (M)������������������������ =3D���� 16.5 deg
-    
-    
-    ������� Time (t)�� ������������������������������=3D 0:00:00
-    
-    
-    ������� Epoch (epoch)�� �������������������������=3D 2021-06-26T=
-    19:20:00.000
+    print(ï¿½True anomaly: {}ï¿½.format(cur_orbit.f * (180/math.pi)))
     
     
      
 
-``What is its orbit (expressed as Keplerian elements a, e, i, Ω, ω, and υ)?
+`Running this script gives us the output:`
 
     
     
-      
+    KeplerianElements:
     
     
+    ï¿½ï¿½  Semimajor axis (a)ï¿½  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=  24732.886 km
     
     
-    _ _
+    ï¿½ï¿½  Eccentricity (e)ï¿½  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=ï¿½ï¿½ï¿½ï¿½  0.706807
     
     
+    ï¿½ï¿½  Inclination (i)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  =ï¿½ï¿½ï¿½ï¿½  0.1 deg
     
     
-    # Hack-a-Sat2 Qualifier 2021:� Cotton Eye GEO
+    ï¿½ï¿½  Right ascension of the ascending node (raan) =ï¿½ï¿½ï¿½  90.2 deg
     
     
+    ï¿½ï¿½  Argument of perigee (arg_pe)ï¿½  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=ï¿½ï¿½  226.6 deg
     
     
-      
-    
-    **Category** :� Guardians of the�=
+    ï¿½ï¿½  Mean anomaly at reference epoch (M0)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  =ï¿½ï¿½ï¿½  16.5 deg
     
     
+    ï¿½ï¿½  Period (T)ï¿½  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½= 10:45:09.999830
     
     
-    
-    **Points: � 82
-    
+    ï¿½ï¿½  Reference epoch (ref_epoch)ï¿½  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½= 2021-06-26T19:20:00.000
     
     
-    
-    **Solves: � 50
-    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  Mean anomaly (M)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  =ï¿½ï¿½ï¿½  16.5 deg
     
     
-    
-    **Description:**
-    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  Time (t)ï¿½  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½= 0:00:00
     
     
-    
-    Where do you go?
-    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  Epoch (epoch)ï¿½  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½= 2021-06-26T19:20:00.000
     
     
-    
-    **Ticket:**
-    
+    True anomaly: 90.3899549735688
     
     
+     
+
+`Which we can enter into the challenge prompt (note: precision differs due to
+manual conversion of units. We used the Python REPL originally which printed
+the elements in meters and radians):`
+
     
     
-    ticket{charlie631677foxtrot2:GKm5yZ=
-    pkXYc6ZtiLirUG0GNE4o0RV33HrYP3wj2Yu_UQwGKCDCd2paizAv00mmZa-A}
+    What is its orbit (expressed as Keplerian elements a, e, i, Ω, ω, and υ)?
+    
+    
+    Semimajor axis, a (km): $ 24732.88581614663
+    
+    
+    Eccentricity, e: $ 0.7068070225889074
+    
+    
+    Inclination, i (deg): $ 0.11790360842536694308
+    
+    
+    Right ascension of the ascending node, Ω (deg): $ 90.226503799786584636
+    
+    
+    Argument of perigee, ω (deg): $ 226.58745907033403455
+    
+    
+    True anomaly, υ (deg): $ 90.389954973793024351
+    
+    
+     
+    
+    
+    You got it! Here's your flag:
+    
+    
+    flag{whiskey465080romeo2:GGg7PfaGYc7h-168SHX2mppVwWZZ2nTVKg6AUN4bzH9w-TQV2X8ou3qiomPLaCJwIvtMBkZ6RXbH2z4dP2UTtS4}
+
+`  
+`
+
+`_ _`
+
+# Hack-a-Sat2 Qualifier 2021: Cotton Eye GEO
+
+  
+**Category** : Guardians of theï¿½
+
+**Points: **82
+
+**Solves: **50
+
+**Description:**
+
+Where do you go?
+
+**Ticket:**
+
+    
+    
+    ticket{charlie631677foxtrot2:GKm5yZpkXYc6ZtiLirUG0GNE4o0RV33HrYP3wj2Yu_UQwGKCDCd2paizAv00mmZa-A}
     
     
      
@@ -1305,26 +1719,38 @@ Upon connecting to the challenge server, we are prompt= ed with the scenario:
 
 _By Irsyad, part of the SingleEventUpset team_
 
-Upon connecting to the challenge server, we are prompt= ed with the scenario:
+Upon connecting to the challenge server, we are prompted with the scenario:
 
     
     
-    Your spacecraft from the first Kepler challenge is in a GEO tr=
-    ansfer orbit.
+    Your spacecraft from the first Kepler challenge is in a GEO transfer orbit.
     
     
-    �� [8449.40130=
-    5, 9125.794363, -17.461357]
+    Determine the maneuver (time and Δv vector) required to put the spacecraft into GEO-strationary orbit: a=42164+/-10km, e<0.001, i<1deg.
     
     
-    ������ 2021-06-26-19:20:00.0=
-    00000-UTC
+    Assume two-body orbit dynamics and an instantaneous Δv in ICRF coordinates.
+    
+    
+    Pos (km):ï¿½  [8449.401305, 9125.794363, -17.461357]
+    
+    
+    Vel (km/s): [-1.419072, 6.780149, 0.002865]
+    
+    
+    Time:ï¿½ï¿½ï¿½ï¿½ï¿½  2021-06-26-19:20:00.000000-UTC
+    
+    
+     
+    
+    
+    What maneuver is required?
     
     
      
 
-`We will be building off the script created in the previous prob= lem. To get
-a better idea on where we are, we can use the �orbitalpy� library to plot our
+`We will be building off the script created in the previous problem. To get a
+better idea on where we are, we can use the ï¿½orbitalpy library to plot our
 current orbit:`
 
     
@@ -1333,13 +1759,25 @@ current orbit:`
     
     
      
+    
+    
+    ...
+    
+    
+     
+    
+    
+    plot(cur_orbit)
+    
+    
+     
 
-![](3D"SingleEventUpsetQualsTechnicalPaper_files/image019.png")
+![](./image019.png)
 
 Our apocenter seems to be at GEO, but our pericenter is still very close to
-the Earth. To increase our pericenter altitude, we need= to perform a burn at
-apocenter. To get the time to apocenter, we can propagate= our true anomaly to
-pi radians, since true anomaly is the angle between pericen= ter and the
+the Earth. To increase our pericenter altitude, we need to perform a burn at
+apocenter. To get the time to apocenter, we can propagate our true anomaly to
+pi radians, since true anomaly is the angle between pericenter and the
 orbiting body.
 
     
@@ -1347,24 +1785,47 @@ orbiting body.
     from orbital import plot
     
     
-    cur_orbit.propagate_anomaly_to(f=3Dm=
-    ath.pi)
+     
+    
+    
+    ...
+    
+    
+     
+    
+    
+    cur_orbit.propagate_anomaly_to(f=math.pi)
+    
+    
+    plot(cur_orbit)
     
     
      
 
-This gives us a time of 2021-06-27T00:12:59.166 and a = plot of:
+This gives us a time of 2021-06-27T00:12:59.166 and a plot of:
 
-![](3D"SingleEventUpsetQualsTechnicalPaper_files/image020.png")
+![](./image020.png)
 
-Finally, we need to find the delta-v required to incre= ase our pericenter to
-GEO (35740 km from sea level). �Orbitalpy� provides maneu= ver functions for
-common maneuvers. The following code constructs a maneuver th= at would
-increase our pericenter to GEO:
+Finally, we need to find the delta-v required to increase our pericenter to
+GEO (35740 km from sea level). ï¿½Orbitalpy provides maneuver functions for
+common maneuvers. The following code constructs a maneuver that would increase
+our pericenter to GEO:
 
     
     
     from orbital import plot, Maneuver
+    
+    
+     
+    
+    
+    ...
+    
+    
+     
+    
+    
+    man1 = Maneuver.set_pericenter_altitude_to((35740 * 1000))
     
     
     cur_orbit.apply_maneuver(man1)
@@ -1372,9 +1833,9 @@ increase our pericenter to GEO:
     
      
 
-Once we had the new orbit, we could subtract the old o= rbit velocity from the
+Once we had the new orbit, we could subtract the old orbit velocity from the
 new orbit velocity to get the delta-v. However, the eccentricity of this
-maneuver did not fit the constraints of the problem. T= he new orbit�s
+maneuver did not fit the constraints of the problem. The new orbitï¿½s
 eccentricity was 0.003177401688221862, and we needed an eccentricity of less
 than 0.001. After some brute forcing, we found the altitude required to get
 our eccentricity less than 0.001:
@@ -1384,21 +1845,66 @@ our eccentricity less than 0.001:
     from orbital import plot, Maneuver
     
     
-    plot(cur_orbit, maneuver=3Dman1)
+     
+    
+    
+    ...
+    
+    
+     
+    
+    
+    man1 = Maneuver.set_pericenter_altitude_to((35762 * 1000))
+    
+    
+    plot(cur_orbit, maneuver=man1)
     
     
     cur_orbit.apply_maneuver(man1)
     
     
+    plot(cur_orbit)
+    
+    
      
 
-![](3D"SingleEventUpsetQualsTechnicalPaper_files/image021.png")
+![](./image021.png)
 
 Our final script, including the brute-forcing, is:
 
     
     
     import orbital
+    
+    
+    import astropy
+    
+    
+    import matplotlib
+    
+    
+    from orbital import plot, Maneuver
+    
+    
+    from time import sleep
+    
+    
+    import numpy
+    
+    
+    from argparse import ArgumentParser as AP
+    
+    
+    from pwn import *
+    
+    
+     
+    
+    
+    # get args from CLI
+    
+    
+    parser = AP()
     
     
     parser.add_argument("target")
@@ -1410,157 +1916,218 @@ Our final script, including the brute-forcing, is:
     parser.add_argument("ticket")
     
     
-    args =3D parser.parse_args()
+    args = parser.parse_args()
     
     
-    ��� value =3D altitude + test_val 
+     
     
     
-    ����print(f"[*] Testing alti=
-    tude: {value}")
+    altitude = 35730
     
     
-    ��� try:=
+    for test_val in range(60):
     
     
+    ï¿½ï¿½  value = altitude + test_val 
     
-    ������� r =3D orbital.utilities.Position=
-    (8449.401305 * 1000, 9125.794363 * 1000, -17.461357 * 1000)
     
+    ï¿½ï¿½ï¿½ï¿½print(f"[*] Testing altitude: {value}")
     
-    ������� v =3D orbital.utilities.Velocity=
-    (-1.419072 * 1000, 6.780149 * 1000, 0.002865 * 1000)
     
+    ï¿½ï¿½  try:
     
-    ������� t =3D astropy.time.Time("20=
-    21-6-26T19:20:00", format=3D'isot', scale=3D'utc')
     
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  r = orbital.utilities.Position(8449.401305 * 1000, 9125.794363 * 1000, -17.461357 * 1000)
     
-    ������� cur_orbit =3D orbital.elements.KeplerianElements.from_state_vector(r, v, =
-    orbital.bodies.earth, ref_epoch<=
-    /span>=3Dt)
     
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  v = orbital.utilities.Velocity(-1.419072 * 1000, 6.780149 * 1000, 0.002865 * 1000)
     
-    ������� #plot(cur_orbit)
     
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  t = astropy.time.Time("2021-6-26T19:20:00", format='isot', scale='utc')
     
-    ������� cur_orbit.propagate_anomaly_to(f=3Dnumpy.pi)
     
+     
     
-    ������� old_v =3D cur_orbit.v
     
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  cur_orbit = orbital.elements.KeplerianElements.from_state_vector(r, v, orbital.bodies.earth, ref_epoch=t)
     
-    ������� #plot(cur_orbit)
     
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  #plot(cur_orbit)
     
-    ������� man1 =3D Maneuver.set_pericenter_altitude_to((value * 1000))
     
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  cur_orbit.propagate_anomaly_to(f=numpy.pi)
     
-    ������� cur_orbit.apply_maneuver(m=
-    an1)
     
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  old_v = cur_orbit.v
     
-    ������� #plot(cur_orbit)
     
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  #plot(cur_orbit)
     
-    ������� new_v =3D cur_orbit.v
     
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  man1 = Maneuver.set_pericenter_altitude_to((value * 1000))
     
-    ������� data =3D (new_v - old_v)/1000<=
-    /o:p>
     
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  cur_orbit.apply_maneuver(man1)
     
-    ��� except Exception as e:
     
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  #plot(cur_orbit)
     
-    ������� print(f"Got exception=
-    : {e}")
     
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  new_v = cur_orbit.v
     
-    ������� continue
     
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  data = (new_v - old_v)/1000
     
-    ��� test =3D str(data.x)
     
+    ï¿½ï¿½  except Exception as e:
     
-    ��� if test =3D=3D "nan"=
-    ;:
     
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  print(f"Got exception: {e}")
     
-    ������� continue
     
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  continue
     
-    ��� print(data)=
     
+    ï¿½ï¿½  test = str(data.x)
     
     
-    ��� with remote(args.target,args.port) as =
-    conn:
+    ï¿½ï¿½  if test == "nan":
     
     
-    ������� conn.recvuntil(b'Ticket please:')
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  continue
     
     
-    ������� conn.sendline(args.ticket)
+    ï¿½ï¿½  print(data)
     
     
-    ������ �conn.recvuntil(b'Time:')
+     
     
     
-    ������� conn.sendline(b"2021-=
-    06-27-00:12:59.000000-UTC")
+    ï¿½ï¿½  with remote(args.target,args.port) as conn:
     
     
-    ������� conn.recvuntil(b':')<=
-    /o:p>
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  conn.recvuntil(b'Ticket please:')
     
     
-    ������� conn.sendline(str(data.x))
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  conn.sendline(args.ticket)
     
     
-    ������� conn.recvuntil(b':')<=
-    /o:p>
+    ï¿½ï¿½ï¿½ï¿½ï¿½  ï¿½conn.recvuntil(b'Time:')
     
     
-    ������� conn.sendline(str(data.y))
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  conn.sendline(b"2021-06-27-00:12:59.000000-UTC")
     
     
-    ������� conn.recvuntil(b':')<=
-    /o:p>
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  conn.recvuntil(b':')
     
     
-    ������� conn.sendline(str(data.z))
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  conn.sendline(str(data.x))
     
     
-    ������� print("[.] Awaiting response...")=
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  conn.recvuntil(b':')
     
     
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  conn.sendline(str(data.y))
     
-    ������� print(conn.recvuntil(b'\n\n').de=
-    code())
     
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  conn.recvuntil(b':')
     
-    ������� l =3D conn.recvline()=
     
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  conn.sendline(str(data.z))
     
     
-    ������� print(l.decode())
+     
     
     
-    ������� if not l.startswith(b"That didn't work, try again!"):
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  print("[.] Awaiting response...")
     
     
-    ����������� print(conn.recvline().decode())<=
-    o:p>
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  print(conn.recvuntil(b'\n\n').decode())
     
     
-    ����������� break
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  l = conn.recvline()
     
     
-    Velocity(x=3D-0.9632461822327666, y=3D-1.0262562401=
-    028483, z=3D0.0019905098232938082)
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  print(l.decode())
     
     
-    flag{charlie631677foxtrot2:GCNwnESuR4pK8g6KjJlYrLD_rGKXFQj7biUirIuiUZDAKEn6-WQX=
-    pdLTc8mKKTDPZHwkuCgxTcoBRk-XC9Q3zrQ}
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  if not l.startswith(b"That didn't work, try again!"):
+    
+    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  print(conn.recvline().decode())
+    
+    
+    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  break
+    
+    
+    # done
+    
+    
+     
+    
+    
+    ...
+    
+    
+     
+    
+    
+    [*] Testing altitude: 35757
+    
+    
+    [*] Testing altitude: 35758
+    
+    
+    [*] Testing altitude: 35759
+    
+    
+    [*] Testing altitude: 35760
+    
+    
+    [*] Testing altitude: 35761
+    
+    
+    [*] Testing altitude: 35762
+    
+    
+    Velocity(x=-0.9632461822327666, y=-1.0262562401028483, z=0.0019905098232938082)
+    
+    
+    [x] Opening connection to visual-sun.satellitesabove.me on port 5014
+    
+    
+    [x] Opening connection to visual-sun.satellitesabove.me on port 5014: Trying 18.118.134.63
+    
+    
+    [+] Opening connection to visual-sun.satellitesabove.me on port 5014: Done
+    
+    
+    [.] Awaiting response...
+    
+    
+     2021-06-26-00:00:00.000-UTC
+    
+    
+    Time: Δv_x (km/s): Δv_y (km/s): Δv_z (km/s): 
+    
+    
+    New Orbit (a, e, i, Ω, ω, υ, t):
+    
+    
+     42173.63146810308 0.0009634533200783378 0.11790360842507447 90.22650379956278 226.92388012629212 179.6631956897002 2021-06-27 00:12:59+00:00
+    
+    
+     
+    
+    
+     
+    
+    
+    You got it! Here's your flag:
+    
+    
+     
+    
+    
+    flag{charlie631677foxtrot2:GCNwnESuR4pK8g6KjJlYrLD_rGKXFQj7biUirIuiUZDAKEn6-WQXpdLTc8mKKTDPZHwkuCgxTcoBRk-XC9Q3zrQ}
 
