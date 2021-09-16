@@ -1,8 +1,9 @@
 # Hack-A-Sat 2 Qualifier Tech Papers
 
-Hack-A-Sat 2 required top-performing teams from qualifiers to submit
-write-ups of quals challenges in order to qualify for finals.
-This repository is a collection of these papers.
+Hack-A-Sat 2 required 
+the top 10 performing teams from qualifiers 
+to submit write-ups of quals challenges
+in order to collect their quals cash prize.
 
 If you plan on solving Hack-A-Sat 2 qualifiers challenges, this
 repository contains solutions for some of them.
